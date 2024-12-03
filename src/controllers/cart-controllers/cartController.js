@@ -33,10 +33,11 @@ const addToCart=async(req,res)=>{
 }
 const removeFromCart=async(req,res)=>{
 try{
-        if(!req.body.userId){
-          return res.status(BAD_REQUEST_STATUS).send({success:false,message:"Invalid request"})
-        }
       const {userId,productId,quantity}=req.body
+      if(!userId||!productId||!quantity)
+      {
+        return res.status(BAD_REQUEST_STATUS).send({success:false,message:"Invalid request"})
+      }
       const {success,data} = await cartServices.deleteItemFromCart(userId,productId,quantity)
       if(!success){
         return res.status(SERVER_ERROR_STATUS).send({success:false,message:data})
@@ -49,7 +50,7 @@ catch(error){
 }
 const getCart=async(req,res)=>{
   try{
-   const userId=req.body.userId
+   const userId=req.params.id
    if(!userId)
    {
     return res.status(BAD_REQUEST_STATUS).send({success:false,message:"Invalid request"})

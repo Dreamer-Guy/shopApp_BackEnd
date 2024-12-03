@@ -9,9 +9,6 @@ import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import upload from './src/config/multer.js';
 
-import userRouter from "./src/routes/userRoute.js";
-import productRouter from "./src/routes/productRoute.js";
-
 import adminProductDetailsRouter from "./src/routes/admin/productDetails.js";
 import adminProductRouter from './src/routes/admin/product.js';
 

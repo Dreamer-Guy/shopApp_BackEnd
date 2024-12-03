@@ -1,7 +1,6 @@
 import Order from "../models/Order.js"
 import Product from "../models/Product.js"
 
-import productService from "./productService.js"
 const calculateTotalAmount = async(items)=>{
     const prodcutIds =items.map(item=>item.productId)
     const products =await Product.find({'_id':{$in:prodcutIds}})
@@ -39,6 +38,56 @@ const orderService={
         const order = new Order({userId:userId,items:items,total:total})
         await order.save()
         return order
+    },
+    async updateStatusOrder(orderId,status){
+        const order = await Order.findByIdAndUpdate(orderId,{status:status},{new:true})
+        if(!order){
+            return({sucees:false,data:"Can not found order"})
+        }
+        return ({success:true,data:order})
+    },
+    async updatePaymentStatusOrder(orderId,paymentStatus){
+        const order = await Order.findByIdAndUpdate(orderId,{paymentStatus:paymentStatus},{new:true})
+        if(!order){
+            return({success:false,data:"Can not found order"})
+        }
+        return ({success:true,data:order})
+    },
+    async deleteOrderById(orderId){
+        const checkOrder =await Order.findById(orderId)
+        if(checkOrder.status==="shipping"){
+            return ({success:false,data:"Order being shipped"})
+        }
+        if(checkOrder.paymentStatus===true){
+            return ({success:false,data:"Order has been paid"})
+        }
+        const order = await Order.findByIdAndDelete(orderId)
+        if(!order){
+            return ({success:false,data:"Can not found order"})
+        }
+        return ({success:true,data:order})
+    },
+    async updateOrder(orderId,userId,items){
+        const order = await Order.findById(orderId)
+        if(!order){
+            return ({success:false,data:"Can not found order"})
+        }
+        if(order.status==="shipping"){
+            return ({success:false,data:"Order being shipped"})
+        }
+        if(order.paymentStatus===true){
+            return ({success:false,data:"Order has been paid"})
+        }
+        const total = await calculateTotalAmount(items)
+        order.userId = userId
+        order.items =items
+        order.total=total
+        const updateOrder= await order.save()
+        return ({success:true,data:updateOrder})
+    },
+    async getOrderByUserId(userId){
+        const orders = await Order.find({userId:userId})
+        return orders
     }
 }
 export default orderService
