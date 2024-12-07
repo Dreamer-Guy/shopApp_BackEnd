@@ -29,23 +29,21 @@ const formatFilterParam=(req)=>{
 const formatPriceParam=(req)=>{
     const DEFAULT_MIN_PRICE=0;
     const DEFAULT_MAX_PRICE=Number.MAX_VALUE;
-    const flag_null=req.query==null?true:false;
-    const flag_nullString=(req.query.minPrice==='null')||(req.query.maxPrice==='null')?true:false;
-    const badQueryParams=flag_null||flag_nullString;
-
-    if(badQueryParams){
-        return {minPrice:DEFAULT_MIN_PRICE,maxPrice:DEFAULT_MAX_PRICE};
-    }
-    const minPrice=req.query.minPrice;
-    const maxPrice=req.query.maxPrice;
-    return {minPrice,maxPrice};
+    const priceRangQuery=req.query.priceRange||`${DEFAULT_MIN_PRICE}-${DEFAULT_MAX_PRICE}`;
+    const priceRange=priceRangQuery.split(',')||[];
+    const formatedPriceRange=priceRange.map(price=>{
+        const [minPrice,maxPrice]=price.split('-');
+        return {minPrice:Number(minPrice),maxPrice:Number(maxPrice)};
+    });
+    return formatedPriceRange;
 };
+
 const getQueryParams=(req)=>{
-    const {page,rowPerPage}=req.query;
+    const {page=1,rowPerPage=ROW_PER_PAGE}=req.query;
     const {brands,categories}=formatFilterParam(req);
     const {sortField,sortOrder}=formatSortParam(req);
-    const {minPrice,maxPrice}=formatPriceParam(req);
-    return {brands,categories,sortField,sortOrder,page,rowPerPage,minPrice,maxPrice};
+    const priceRange=formatPriceParam(req);
+    return {brands,categories,sortField,sortOrder,page:Number(page),rowPerPage:Number(rowPerPage),priceRange};
 }
 
 const populateProduct=(product)=>{
@@ -69,44 +67,49 @@ const populateAggregatedProducts=(product)=>{
 
 //controller
 
-const getAllFilteredProducts = async (req, res) => {
-    try {
-        const {
-            brands,categories,
-            sortField,sortOrder,
-            page=1,rowsPerPage=ROW_PER_PAGE,
-            minPrice,maxPrice}=getQueryParams(req);
-        const {onSales}=req.query;
-        let products = await productService.getProducts({ brands, categories, sortField, sortOrder,minPrice,maxPrice });
-        if(onSales==='true'){
-            products=products.filter((product)=>product.salePrice>0);
-        }
-        const totalProducts=products.length;
-        if(page && rowsPerPage){
-            products=products.slice((page-1)*rowsPerPage,page*rowsPerPage);
-        }
-        return res.status(SUCCESS_STATUS).send({
-            products:products.map(product=>populateProduct(product)),
-            totalProducts,
-        })
-    }
-    catch (e) {
-        return res.status(SERVER_ERROR_STATUS).send({
-            message:"server error",
-        });
-    }
-};
+// const getAllFilteredProducts = async (req, res) => {
+//     try {
+//         const {
+//             brands,categories,
+//             sortField,sortOrder,
+//             page=1,rowsPerPage=ROW_PER_PAGE,
+//             minPrice,maxPrice}=getQueryParams(req);
+//         const {onSales}=req.query;
+//         let products = await productService.getProducts({ brands, categories, sortField, sortOrder,minPrice,maxPrice });
+//         if(onSales==='true'){
+//             products=products.filter((product)=>product.salePrice>0);
+//         }
+//         const totalProducts=products.length;
+//         if(page && rowsPerPage){
+//             products=products.slice((page-1)*rowsPerPage,page*rowsPerPage);
+//         }
+//         return res.status(SUCCESS_STATUS).send({
+//             products:products.map(product=>populateProduct(product)),
+//             totalProducts,
+//         })
+//     }
+//     catch (e) {
+//         return res.status(SERVER_ERROR_STATUS).send({
+//             message:"server error",
+//         });
+//     }
+// };
 
 const searchProducts = async (req, res) => {
     try {
-        const {
-            brands,categories,
+        const {brands,categories,
             sortField,sortOrder,
-            page=1,rowsPerPage=ROW_PER_PAGE,
-            minPrice,maxPrice}=getQueryParams(req);
+            page,rowsPerPage=ROW_PER_PAGE,
+            priceRange=[]}=getQueryParams(req);
         const {onSales}=req.query;
         const {search}=req.query;
-        let products = await productService.getProductsBySearch(search,{ brands, categories, sortField, sortOrder,minPrice,maxPrice });
+        let products=[];
+        if(search && search.trim().length>0){
+            products=await productService.getProductsBySearch(search,{brands, categories, sortField, sortOrder,priceRange });
+        }
+        else{
+            products = await productService.getProducts({ brands, categories, sortField, sortOrder,priceRange });
+        }
         if(onSales==='true'){
             products=products.filter((product)=>product.salePrice>0);
         }
@@ -114,14 +117,14 @@ const searchProducts = async (req, res) => {
         if(page && rowsPerPage){
             products=products.slice((page-1)*rowsPerPage,page*rowsPerPage);
         }
-        return res.status(SUCCESS_STATUS).send({
-            products:products.map(product=>populateAggregatedProducts(product)),
+        return res.send({
             totalProducts,
-        })
+            products,
+        });
     }
     catch (e) {
-        return res.status(SERVER_ERROR_STATUS).send({
-            message:"server error",
+        return res.json({
+            data: e.message,
         });
     }
 };
@@ -140,4 +143,4 @@ const getRelatedProducts=async(req,res)=>{
         });
     }
 }
-export { getAllFilteredProducts,searchProducts,getRelatedProducts};
+export { searchProducts,getRelatedProducts};

@@ -56,9 +56,12 @@ productSchema.query.byBrand = function(brands) {
     });
 };
 
-productSchema.query.byPrice=function(minPrice,maxPrice){
-    if(!minPrice || !maxPrice) return this;
-    return this.where({price:{$gte:minPrice,$lte:maxPrice}});
+productSchema.query.byPrice=function(priceRange=[]){
+    if (priceRange.length===0) return this; 
+    const priceConditions=priceRange.map(({minPrice,maxPrice})=>({
+        price:{$gte:minPrice,$lte:maxPrice}
+    }));
+    return this.where({$or:priceConditions});
 }
 
 productSchema.index({name:'text',description:'text'});

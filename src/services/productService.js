@@ -19,13 +19,14 @@ const productService = {
         const product = await Product.findById(productId);
         return product !== null;
     },
-    getProducts: async ({ brands, categories, sortField='price', sortOrder=1,minPrice=0,maxPrice=Number.MAX_VALUE }) => {
+    getProducts: async ({ brands, categories, sortField='price', sortOrder=1,minPrice=0,priceRange }) => {
         const products = await Product.find()
             .byCategory(categories)
             .byBrand(brands)
-            .byPrice(minPrice,maxPrice)
+            .byPrice(priceRange)
             .sort({ [sortField]: sortOrder })
-            .exec();
+            .lean();
+        const t=products.filter(product=>product.category_id&&product.brand_id);
         return products.filter(product=>product.category_id&&product.brand_id);
     },
     
@@ -95,7 +96,12 @@ const productService = {
     },
     
     getProductsBySearch: async (searchTerm,
-        { brands, categories, sortField='price', sortOrder=1,minPrice=0,maxPrice=Number.MAX_VALUE }) => {
+        { brands=[], categories=[], sortField='price', sortOrder=1,priceRange }) => {
+            const priceConditions=priceRange.map(({minPrice,maxPrice})=>{
+                return {
+                    price: { $gte: minPrice, $lte: maxPrice }
+                }
+            });
             const products = await Product.aggregate([
                 {
                     $lookup:{
@@ -126,10 +132,10 @@ const productService = {
                                     { description:{ $regex: searchTerm, $options: 'i' }}
                                 ]
                             },
-                            categories.length > 0 ? { 'category.name': { $in: categories } } : {},
-                            brands.length > 0 ? { 'brand.name': { $in: brands } } : {},
+                            categories.length > 0 ? { 'category.name': { $in: categories.map(c => new RegExp(c, 'i')) } } : {},
+                            brands.length > 0 ? { 'brand.name': { $in: brands.map(b => new RegExp(b, 'i')) } } : {},
                             {
-                                price:{$gte:Number(minPrice),$lte:Number(maxPrice)}
+                                $or: priceConditions
                             }
                         ]
                     }
