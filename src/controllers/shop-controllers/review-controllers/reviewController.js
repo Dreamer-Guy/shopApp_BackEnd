@@ -5,6 +5,14 @@ const SUCCESS_STATUS = 200;
 const BAD_REQUEST_STATUS = 400;
 const SERVER_ERROR_STATUS = 500;
 
+
+const populateReview=(review)=>{
+    const populatedReview={...review,
+        createdAt:`${review.createdAt.getDate()}/${review.createdAt.getMonth()+1}/${review.createdAt.getFullYear()}`,
+    };
+    return populatedReview;
+};
+
 const checkAndGetErrorMessageMissField = (req) => {
     const { productId, rating, comment } = req.body;
     if(!productId){
@@ -77,7 +85,7 @@ const getProductReviews = async (req, res) => {
             productId,
             ratingFilter,
         });
-        return res.status(SUCCESS_STATUS).send(reviews);
+        return res.status(SUCCESS_STATUS).send(reviews.map(review=>populateReview(review)));
     } 
     catch (e) {
         res.status(SERVER_ERROR_STATUS).send({

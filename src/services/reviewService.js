@@ -18,14 +18,14 @@ const reviewService = {
         if (ratingFilter) {
             filter.rating = ratingFilter;
 
-            const reviews = await Review.find(filter).populate('userId', 'name email');
+            const reviews = await Review.find(filter).populate('userId').lean();
             return reviews;
         }
 
         const reviews = await Review.find(productId)
-                .populate('userId', 'name email')
-                .sort({ rating: -1 });
-
+                .populate('userId')
+                .sort({ rating: -1 })
+                .lean();
         return reviews;
     },
     
