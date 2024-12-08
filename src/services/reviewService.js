@@ -8,8 +8,8 @@ const reviewService = {
     },
 
     async saveReview(reviews){
-        await reviews.save();
-        return reviews;
+        const saved=await reviews.save();
+        return saved;
     },
     
     async getReviewsByProduct(productId, ratingFilter){

@@ -1,5 +1,5 @@
 import { searchProducts,getRelatedProducts}
-from "../controllers/shop-controllers/productController.js";
+from "../../controllers/shop-controllers/product-controllers.js/productController.js";
 import express from "express";
 
 const productRouter=express.Router();

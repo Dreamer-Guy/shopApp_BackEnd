@@ -151,6 +151,12 @@ const productService = {
         const products = await Product.find().sort({ rating: -1 }).limit(top);
         return products;
     },
+    updateByProductRating: async (productId, rating) => {
+        const product = await Product.findById(productId);
+        product.rating = (product.rating * product.numReviews + Number(rating)) / (product.numReviews + 1);
+        product.numReviews += 1;
+        await product.save();
+    },
 };
 
 export default productService;

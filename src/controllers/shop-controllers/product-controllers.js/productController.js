@@ -1,4 +1,4 @@
-import productService from "../../services/productService.js";
+import productService from "../../../services/productService.js";
 
 
 const SUCCESS_STATUS = process.env.SUCCESS_STATUS;

@@ -1,4 +1,4 @@
-import productDetailsService from "../../services/productDetailsService.js";
+import productDetailsService from "../../../services/productDetailsService.js";
 
 
 const SUCCESS_STATUS = 200;

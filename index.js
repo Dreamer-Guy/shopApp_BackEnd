@@ -6,9 +6,10 @@ import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import upload from './src/config/multer.js';
 
-import userRouter from "./src/routes/userRoute.js";
-import productDetailsRouter from './src/routes/productDetailsRoute.js';
-import productRouter from "./src/routes/productRoute.js";
+import userRouter from "./src/routes/shop/userRoute.js";
+import productDetailsRouter from './src/routes/shop/productDetailsRoute.js';
+import productRouter from "./src/routes/shop/productRoute.js";
+import reviewRouter from './src/routes/shop/reviewRoute.js';
 
 import adminProductDetailsRouter from "./src/routes/admin/productDetails.js";
 import adminProductRouter from './src/routes/admin/product.js';
@@ -35,6 +36,8 @@ app.get("/", (req, res) => {
 app.use("/users", userRouter);
 app.use("/products", productRouter);
 app.use("/product-details", productDetailsRouter);
+app.use("/reviews", reviewRouter);
+
 app.use("/admin/product-details", adminProductDetailsRouter);
 app.use("/admin/products", adminProductRouter);
 app.use("/admin/brands", adminBrandRouter);

@@ -1,4 +1,4 @@
-import { getProductDetailsByProductId } from "../controllers/shop-controllers/productDetailsController.js";
+import { getProductDetailsByProductId } from "../controllers/shop-controllers/productDetail-controllers/productDetailsController.js";
 import ProductProperties from "../models/ProductProperties.js";
 import ProductPropertyValues from "../models/ProductPropertyValues.js";
 
