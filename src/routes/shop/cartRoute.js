@@ -6,7 +6,7 @@ const cartRoute=express.Router()
 cartRoute.post("/add",verifyUserJWT,addToCart);
 cartRoute.delete("/delete/:productId",verifyUserJWT,removeFromCart);
 cartRoute.delete("/delete-cart",verifyUserJWT,deleteCart);
-cartRoute.post("/get",verifyUserJWT,getCart);
+cartRoute.get("/get",verifyUserJWT,getCart);
 cartRoute.put("/update",verifyUserJWT,updateCart);
 
 export default cartRoute

@@ -83,7 +83,9 @@ const cartService = {
             return ({success:false,data:"Cart not found"});
         }
         await Cart.findOneAndDelete({userId:userId});
-        return ({success:true,data:[]});
+        return ({success:true,data:{
+            userId:userId,
+            items:[]}});
     },
 }
 

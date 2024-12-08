@@ -78,7 +78,7 @@ const deleteCart = async (req, res) => {
       const userId = req.user._id;
       const { success, data } = await cartServices.deleteCartByUserId(userId);
       if (!success) {
-        return res.status(SERVER_ERROR_STATUS).send({ success: false, message: data })
+        return res.status(SERVER_ERROR_STATUS).send({ success: false, message: data });
       }
       return res.status(SUCCESS_STATUS).json(data);
     }
