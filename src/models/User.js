@@ -9,6 +9,11 @@ const userSchema= new mongoose.Schema({
     avatar:{type:String,default:""},
     role:{type:String,default:"user"},
     createdAt: {type: Date, default: Date.now},
+    status:{
+        type:String,
+        default:"active",
+        enum:["active","ban"]
+    }
 });
 const User=mongoose.model('User',userSchema);
 
