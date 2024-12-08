@@ -72,4 +72,18 @@ const getCart = async (req, res) => {
         return res.status(SERVER_ERROR_STATUS).send({ success: false, message: "Server error" })
     }
 }
-export { addToCart, removeFromCart, getCart,updateCart }
+
+const deleteCart = async (req, res) => {
+    try{
+      const userId = req.user._id;
+      const { success, data } = await cartServices.deleteCartByUserId(userId);
+      if (!success) {
+        return res.status(SERVER_ERROR_STATUS).send({ success: false, message: data })
+      }
+      return res.status(SUCCESS_STATUS).json(data);
+    }
+    catch(error){
+      return res.status(SERVER_ERROR_STATUS).send({ success: false, message: "Server error" })
+    }
+};
+export { addToCart, removeFromCart, getCart,updateCart ,deleteCart};

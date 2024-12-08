@@ -76,7 +76,15 @@ const cartService = {
             }});
         }
         return ({success:true,data:cartItem})
-    }
+    },
+
+    async deleteCartByUserId(userId){
+        if(!await Cart.findOne({userId:userId})){
+            return ({success:false,data:"Cart not found"});
+        }
+        await Cart.findOneAndDelete({userId:userId});
+        return ({success:true,data:[]});
+    },
 }
 
 export default cartService;
