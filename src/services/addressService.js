@@ -3,13 +3,13 @@ import Address from "../models/Address.js";
 const addressService = {
 
     async createAddress(addressData){
-        const addresses = new Address(addressData);
-        return addresses;
+        const address = new Address(addressData);
+        return address;
     },
 
-    async saveAddress(addresses){
-        await addresses.save();
-        return addresses
+    async saveAddress(address){
+        await address.save();
+        return address;
     },
 
     async getAddresses(){
@@ -18,42 +18,44 @@ const addressService = {
     },
 
     async getAddressById(addressId){
-        const addresses = await Address.findById(addressId);
-        return addresses;
+        const address = await Address.findById(addressId);
+        return address;
     },
 
     async updateAddress(addressId, updateData){
-        const addresses = await Address.findByIdAndUpdate(addressId, updateData);
-        return addresses;
+        const address = await Address.findByIdAndUpdate(addressId, updateData, { new: true });
+        return address;
     },
 
     async deleteAddress(addressId) {
-        const addresses = await Address.findByIdAndDelete(addressId);
-        return addresses;
+        const address = await Address.findByIdAndDelete(addressId);
+        return address;
     },
 
     async setDefaultAddress(addressId) {
-        const addresses = await Address.findById(addressId);
-    
+        const address = await Address.findById(addressId);
+
         await Address.updateMany(
             { isDefault: true },
             { isDefault: false }
         );
-    
-        addresses.isDefault = true;
-    
-        return addresses;
+
+        address.isDefault = true;
+
+        return address;
     },
 
     async checkAddressExistence(addressData) {
-        const addresses = await Address.findOne({
+        const address = await Address.findOne({
             address: addressData.address,
-            postAlCode: addressData.postAlCode,
+            city: addressData.city,
+            postalCode: addressData.postalCode,
             phone: addressData.phone,
         });
 
-        return addresses;
+        return address;
     },
+
 };
 
 export default addressService;

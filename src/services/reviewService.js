@@ -8,24 +8,24 @@ const reviewService = {
     },
 
     async saveReview(reviews){
-        await reviews.save();
-        return reviews;
+        const saved=await reviews.save();
+        return saved;
     },
     
-    async getReviewsByProduct(productId){
+    async getReviewsByProduct(productId, ratingFilter){
         const filter = { productId };
 
         if (ratingFilter) {
             filter.rating = ratingFilter;
 
-            const reviews = await Review.find(filter).populate('userId', 'name email');
+            const reviews = await Review.find(filter).populate('userId').lean();
             return reviews;
         }
 
         const reviews = await Review.find(productId)
-                .populate('userId', 'name email')
-                .sort({ rating: -1 });
-
+                .populate('userId')
+                .sort({ rating: -1 })
+                .lean();
         return reviews;
     },
     

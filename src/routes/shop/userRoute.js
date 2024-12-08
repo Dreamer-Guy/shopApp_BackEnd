@@ -1,9 +1,9 @@
 import { get } from "http";
 import { loginUser, registerUser,logoutUser,getLoginStatus } 
-from "../controllers/user-controllers/basicAuthenticate.js";
+from "../../controllers/user-controllers/basicAuthenticate.js";
 import { redirectOauthGoogle, authGoogleCallback } 
-from "../controllers/user-controllers/googleAuthenticate.js";
-import verifyUserJWT from "../middlewares/verifyUserJWT.js";
+from "../../controllers/user-controllers/googleAuthenticate.js";
+import verifyUserJWT from "../../middlewares/verifyUserJWT.js";
 import express from "express";
 
 const userRouter = express.Router();
