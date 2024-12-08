@@ -1,6 +1,5 @@
 import productDetailsService from "../../services/productDetailsService.js";
 import productService from "../../services/productService.js";
-import productDetailsValidator from "../../Factory/productDetailsFactoryValidator.js";
 
 
 const SUCCESS_STATUS = 200;
