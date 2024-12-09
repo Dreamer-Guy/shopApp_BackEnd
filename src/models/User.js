@@ -8,10 +8,11 @@ const userSchema= new mongoose.Schema({
     password: {type: String, required: true},
     avatar:{type:String,default:""},
     role:{type:String,default:"user"},
+    status:{type:String,default:"active"},
     createdAt: {type: Date, default: Date.now},
 });
 const User=mongoose.model('User',userSchema);
-
+User.createIndexes();
 const StaffSchema = new mongoose.Schema({
     role:{type:String,default:"staff"},
     salary:{ type: Number, required: true },
