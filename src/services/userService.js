@@ -55,7 +55,6 @@ const userServices = {
     async banAccount(id){
         const user = await User.findById(id);
         user.status="ban";
-        console.log(user);
         await user.save();
     },
 
