@@ -38,8 +38,8 @@ productSchema.query.byCategory = function(categories) {
     }
     return this.populate({
         path: 'category_id',
-        match:{
-            name:{$in:categories}
+        match: {
+            name: { $in: categories.map(category => new RegExp(`^${category}$`, 'i')) }
         }
     });
 };
@@ -50,10 +50,11 @@ productSchema.query.byBrand = function(brands) {
     }
     return this.populate({
         path: 'brand_id',
-        match:{
-            name:{$in:brands}
+        match: {
+            name: { $in: brands.map(brand => new RegExp(`^${brand}$`, 'i')) }
         }
     });
+    
 };
 
 productSchema.query.byPrice=function(priceRange=[]){
