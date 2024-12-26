@@ -33,8 +33,11 @@ const cartService = {
               return ({success:false,data:"Product not found in cart"})
             }
             if(quantity){
+                if(cart.items[itemIndex].quantity<quantity){
+                   return ({success:false,data:"Invalid quantity"})
+                }
                 cart.items[itemIndex].quantity-=quantity
-                if(cart.items[itemIndex].quantity<=0){
+                if(cart.items[itemIndex].quantity===0){
                     cart.items.splice(itemIndex,1)
                 }
             }

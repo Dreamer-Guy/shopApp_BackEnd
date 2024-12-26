@@ -17,7 +17,9 @@ import adminBrandRouter from './src/routes/admin/brand.js';
 import adminCategoryRouter from './src/routes/admin/category.js';
 import adminCategoryTypicalDetails from "./src/routes/admin/categoryTypical.js";
 import adminCustomerRouter from "./src/routes/admin/customer.js";
+import adminrevenueRouter from "./src/routes/admin/revenue.js";
 
+import orderRouter from "./src/routes/orderRoute.js"
 
 const corsOptions = {
     origin: `${process.env.FRONTEND_BASE_URL}`,
@@ -39,6 +41,7 @@ app.use("/products", productRouter);
 app.use("/product-details", productDetailsRouter);
 app.use("/reviews", reviewRouter);
 app.use("/carts", cartRouter);
+app.use("/orders",orderRouter);
 
 app.use("/admin/product-details", adminProductDetailsRouter);
 app.use("/admin/products", adminProductRouter);
@@ -46,6 +49,7 @@ app.use("/admin/brands", adminBrandRouter);
 app.use("/admin/categories", adminCategoryRouter);
 app.use("/admin/category-typicals", adminCategoryTypicalDetails);
 app.use("/admin/customers", adminCustomerRouter);
+app.use("/admin/revenues", adminrevenueRouter);
 
 
 
