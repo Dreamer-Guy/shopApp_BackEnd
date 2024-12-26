@@ -8,7 +8,7 @@ import upload from "../../config/multer.js";
 const adminProductRouter=express.Router();
 
 adminProductRouter.get("/all",getAllProducts);
-adminProductRouter.get("/:id",getProductById);
+adminProductRouter.get("/get/:id",getProductById);
 adminProductRouter.post("/add",upload.single("image"),addProduct);
 adminProductRouter.delete("/delete/:id",deleteProductById);
 adminProductRouter.put("/update/:id",upload.single("image"),updateByProductId);

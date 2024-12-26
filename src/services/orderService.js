@@ -1,6 +1,39 @@
 import Order from "../models/Order.js"
 import Product from "../models/Product.js"
 
+const mockOrders = [
+    // Year 2022
+    { total: 250, createdAt: new Date("2022-03-14") },
+    { total: 480, createdAt: new Date("2022-06-21") },
+    { total: 320, createdAt: new Date("2022-09-05") },
+  
+    // Year 2023
+    { total: 150, createdAt: new Date("2023-01-18") },
+    { total: 590, createdAt: new Date("2023-05-24") },
+    { total: 410, createdAt: new Date("2023-08-11") },
+  
+    // Year 2024
+    { total: 230, createdAt: new Date("2024-02-12") },
+    { total: 670, createdAt: new Date("2024-04-19") },
+    { total: 340, createdAt: new Date("2024-07-29") },
+    { total: 760, createdAt: new Date("2024-09-07") },
+  
+    // Year 2024, months 10, 11, 12
+    { total: 500, createdAt: new Date("2024-10-15") },
+    { total: 620, createdAt: new Date("2024-11-09") },
+    { total: 430, createdAt: new Date("2024-12-01") },
+    { total: 800, createdAt: new Date("2024-12-13") },
+  
+    // Year 2024, days 26, 24, 25, month 12
+    { total: 900, createdAt: new Date("2024-12-24") },
+    { total: 750, createdAt: new Date("2024-12-25") },
+    { total: 890, createdAt: new Date("2024-12-26") },
+    { total: 940, createdAt: new Date("2024-12-26") },
+  ];
+
+  
+
+
 const calculateTotalAmount = async(items)=>{
     const prodcutIds =items.map(item=>item.productId)
     const products =await Product.find({'_id':{$in:prodcutIds}})
@@ -21,7 +54,7 @@ const calculateTotalAmount = async(items)=>{
         }
     }
     )
-    return totalAmount
+    return totalAmount;
 }
 const orderService={
     async validateItems(items){
@@ -29,9 +62,9 @@ const orderService={
         const products = await Product.find({'_id':{$in:productIds}})
         if(products.length!=items.length){
             const inValidProducts = items.filter(item =>!products.some(product => product._id.toString()===item.productId.toString()))
-            return inValidProducts
+            return inValidProducts;
         }
-        return true
+        return true;
     },
     async createOrder(userId,items){
         const total = await calculateTotalAmount(items)
@@ -88,6 +121,30 @@ const orderService={
     async getOrderByUserId(userId){
         const orders = await Order.find({userId:userId})
         return orders
+    },
+
+    async getOrders(){
+        const orders= await Order.find().lean();
+        return orders;
+    },
+
+    async getOrdersFromGivenTimeRange(timeRange){
+        // const orders= await Order.find({
+        //     createdAt:{
+        //         $and:[
+        //             {$gte:timeRange.start},
+        //             {$lte:timeRange.end}
+        //         ]
+        //     }
+        // })
+        const orders=mockOrders.filter(order=>{
+            const orderDate = new Date(order.createdAt)
+            if(orderDate>=timeRange.start && orderDate<=timeRange.end){
+                return true;
+            }
+            return false;
+        })
+        return orders;
     }
 }
-export default orderService
+export default orderService;

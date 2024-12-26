@@ -1,3 +1,4 @@
+import { banAccount } from "../controllers/admin-controllers/customerController.js";
 import User from "../models/User.js";
 
 const userServices = {
@@ -44,7 +45,24 @@ const userServices = {
     async checkIfUserExistsByEmail(email){
         const user=await User.findOne({email});
         return user?true:false;
-    }
+    },
+    async getAllCustomers(page,limit,sorts){
+        const customers=await User.find({role:"user"})
+        .sort(sorts).skip((page-1)*limit).limit(limit);
+        return customers;
+    },
+
+    async banAccount(id){
+        const user = await User.findById(id);
+        user.status="ban";
+        await user.save();
+    },
+
+    async unbanAccount(id){
+        const user = await User.findById(id);
+        user.status="active";
+        await user.save();
+    },
 };
 
 export default userServices;

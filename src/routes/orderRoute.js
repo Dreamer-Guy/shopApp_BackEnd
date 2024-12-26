@@ -6,7 +6,7 @@ import {
     updatePaymentStatusOrder,
     updateOrder,deleteOrderById,
     getOrderByUserId} 
-    from "../controllers/order-controllers/orderController.js"
+    from "../controllers/shop-controllers/order-controllers/orderController.js";
 
 const orderRoute =express.Router()
 

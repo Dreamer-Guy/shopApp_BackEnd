@@ -17,7 +17,7 @@ const uploadImage=async(filePath)=>{
         return downloadURL;
     }
     catch(err){
-        return null;
+        return '';
     }
 }
 

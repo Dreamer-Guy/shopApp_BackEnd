@@ -8,9 +8,9 @@ import express from "express";
 
 const adminProductDetailsRouter=express.Router();
 
-adminProductDetailsRouter.get("/:id",getProductDetailsByProductId);
-adminProductDetailsRouter.post("/",addProductDetails);
-adminProductDetailsRouter.put("/:id",updateProductDetailsByProductId);
-adminProductDetailsRouter.delete("/:id",deleteProductDetailsByProductId);
+adminProductDetailsRouter.get("/get/:id",getProductDetailsByProductId);
+adminProductDetailsRouter.post("/add",addProductDetails);
+adminProductDetailsRouter.put("/update/:id",updateProductDetailsByProductId);
+adminProductDetailsRouter.delete("/delete/:id",deleteProductDetailsByProductId);
 
 export default adminProductDetailsRouter;
