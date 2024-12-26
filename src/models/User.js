@@ -10,6 +10,11 @@ const userSchema= new mongoose.Schema({
     role:{type:String,default:"user"},
     status:{type:String,default:"active"},
     createdAt: {type: Date, default: Date.now},
+    status:{
+        type:String,
+        default:"active",
+        enum:["active","ban"]
+    }
 });
 const User=mongoose.model('User',userSchema);
 User.createIndexes();

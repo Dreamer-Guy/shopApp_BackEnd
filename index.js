@@ -4,8 +4,8 @@ import express from 'express';
 import mongoose from "./src/config/mongoose.js";
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
-import upload from './src/config/multer.js';
 
+import cartRouter from "./src/routes/shop/cartRoute.js";
 import userRouter from "./src/routes/shop/userRoute.js";
 import productDetailsRouter from './src/routes/shop/productDetailsRoute.js';
 import productRouter from "./src/routes/shop/productRoute.js";
@@ -38,6 +38,7 @@ app.use("/users", userRouter);
 app.use("/products", productRouter);
 app.use("/product-details", productDetailsRouter);
 app.use("/reviews", reviewRouter);
+app.use("/carts", cartRouter);
 
 app.use("/admin/product-details", adminProductDetailsRouter);
 app.use("/admin/products", adminProductRouter);
