@@ -4,9 +4,20 @@ import Product from "../models/Product.js";
 
 const productService = {
     getAllProducts:async()=>{
-        const products=await Product.find().lean();
+        const products=await Product.find({isDeleted:false}).lean();
         return products;
     },
+
+    getSoftDeletedProducts:async(page,limit)=>{
+        const products=await Product.find({isDeleted:true}).skip((page-1)*limit).limit(limit).lean();
+        return products;
+    },
+
+    countSoftDeletedProducts:async()=>{
+        const count=await Product.countDocuments({isDeleted:true});
+        return count;
+    },
+
     create: async (productProps) => {
         const productRes =await Product.create(productProps);
         return productRes;
@@ -20,7 +31,7 @@ const productService = {
         return product !== null;
     },
     getProducts: async ({ brands, categories, sortField='price', sortOrder=1,minPrice=0,priceRange }) => {
-        const products = await Product.find()
+        const products = await Product.find({isDeleted:false})
             .byCategory(categories)
             .byBrand(brands)
             .byPrice(priceRange)
@@ -39,11 +50,22 @@ const productService = {
         const product = await Product.findByIdAndUpdate(productId, productProps, { new: true });
         return product;
     },
-
+    softDeleteByProductId: async (productId) => {
+        const product = await Product.findById(productId);
+        if(!product){
+            return;
+        }
+        product.isDeleted = true;
+        await product.save();
+    },
     deleteByProductId: async (productId) => {
         await Product.findByIdAndDelete(productId);
     },
-
+    restoreProductById: async (productId) => {
+        const product = await Product.findById(productId);
+        product.isDeleted = false;
+        await product.save();
+    },
     getRelatedProductsByProductId: async (productId) => {
         const product = await Product.findById(productId)
             .populate('brand_id')  
@@ -86,6 +108,9 @@ const productService = {
                         },
                         {
                             _id: { $ne: new mongoose.Types.ObjectId(productId) }  
+                        },
+                        {
+                            isDeleted:false,
                         }
                     ]
                 }
@@ -136,6 +161,9 @@ const productService = {
                             brands.length > 0 ? { 'brand.name': { $in: brands.map(b => new RegExp(b, 'i')) } } : {},
                             {
                                 $or: priceConditions
+                            },
+                            {
+                                isDeleted:false,
                             }
                         ]
                     }
@@ -148,7 +176,7 @@ const productService = {
     },
 
     getTopProducts: async (top) => {
-        const products = await Product.find().sort({ rating: -1 }).limit(top);
+        const products = await Product.find({isDeleted:false}).sort({ rating: -1 }).limit(top);
         return products;
     },
     updateByProductRating: async (productId, rating) => {
@@ -158,5 +186,6 @@ const productService = {
         await product.save();
     },
 };
+
 
 export default productService;

@@ -24,15 +24,15 @@ const placeOrder = async (req,res)=>{
         if(!await isOrderValid(req)){
             return res.status(BAD_REQUEST_STATUS).send({success:false,message:"Invalid request"})
         }
-        const {userId,items } =req.body
-        const invalidProductIds =await orderService.validateItems(items) 
-        if(invalidProductIds!==true){
+        const {userId,items } =req.body;
+        const invalidProductIds =await orderService.getInvalidItemsOfCart(items);
+        if(invalidProductIds.length>0){
             return res.status(BAD_REQUEST_STATUS).send({success:false,message:"Products not exits",invalidProductIds})
         }
         for (const item of items) {
             const { success, data } = await cartService.deleteItemFromCart(userId, item.productId, item.quantity);
             if(!success){
-                        return res.status(SERVER_ERROR_STATUS).send({success:false,message:"Can not remove item from cart"})
+                return res.status(SERVER_ERROR_STATUS).send({success:false,message:"Can not remove item from cart"})
             }
         }
         const order =await orderService.createOrder(userId,items)

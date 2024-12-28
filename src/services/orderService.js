@@ -56,21 +56,25 @@ const calculateTotalAmount = async(items)=>{
     )
     return totalAmount;
 }
+
+
 const orderService={
-    async validateItems(items){
+    async getInvalidItemsOfCart(items){
         const productIds = items.map(item => item.productId)
-        const products = await Product.find({'_id':{$in:productIds}})
-        if(products.length!=items.length){
-            const inValidProducts = items.filter(item =>!products.some(product => product._id.toString()===item.productId.toString()))
+        const existingProducts = await Product.find({'_id':{$in:productIds}})
+        if(existingProducts.length!=items.length){
+            const inValidProducts = items.filter(
+                item =>!existingProducts.some(
+                    product => product._id.toString()===item.productId.toString() && product.isDeleted===false))
             return inValidProducts;
         }
         return true;
     },
     async createOrder(userId,items){
-        const total = await calculateTotalAmount(items)
-        const order = new Order({userId:userId,items:items,total:total})
-        await order.save()
-        return order
+        const total = await calculateTotalAmount(items);
+        const order = new Order({userId:userId,items:items,total:total});
+        await order.save();
+        return order;
     },
     async updateStatusOrder(orderId,status){
         const order = await Order.findByIdAndUpdate(orderId,{status:status},{new:true})
