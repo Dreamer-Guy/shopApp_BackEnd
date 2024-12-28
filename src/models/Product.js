@@ -26,6 +26,10 @@ const productSchema= new mongoose.Schema({
         type:Number,
         default:0,
     },
+    isDeleted:{
+        type:Boolean,
+        default:false,
+    },
     description: {type: String,default:"No description"},
     status:{type:String,default:"On stock"},
     createdAt:{type:Date,default:Date.now},

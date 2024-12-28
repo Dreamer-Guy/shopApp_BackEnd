@@ -19,7 +19,9 @@ import adminCategoryTypicalDetails from "./src/routes/admin/categoryTypical.js";
 import adminCustomerRouter from "./src/routes/admin/customer.js";
 import adminrevenueRouter from "./src/routes/admin/revenue.js";
 
-import orderRouter from "./src/routes/orderRoute.js"
+import orderRouter from "./src/routes/shop/orderRoute.js"
+
+import utilsRouter from "./src/routes/utilsRoute.js";
 
 const corsOptions = {
     origin: `${process.env.FRONTEND_BASE_URL}`,
@@ -50,6 +52,8 @@ app.use("/admin/categories", adminCategoryRouter);
 app.use("/admin/category-typicals", adminCategoryTypicalDetails);
 app.use("/admin/customers", adminCustomerRouter);
 app.use("/admin/revenues", adminrevenueRouter);
+
+app.use("/utils", utilsRouter);
 
 
 

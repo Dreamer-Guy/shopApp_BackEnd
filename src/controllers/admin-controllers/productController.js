@@ -4,9 +4,12 @@ import deleteImageFromDisk from "../../utils/deleteImageFromDisk.js";
 import productDetailsService from "../../services/productDetailsService.js";
 import brandService from "../../services/brandService.js";
 import categoryService from "../../services/categoryService.js";
+
 const SUCCESS_STATUS = 200;
 const BAD_REQUEST_STATUS = 400;
 const SERVER_ERROR_STATUS = 500;
+
+const TMP_DIR_PATH="./tmp";
 
 const isMissEssentialData=(req)=>{
     const ESSENTIAL_DATA=["name","description","price","salePrice","category_id","brand_id"];
@@ -22,8 +25,6 @@ const isMissEssentialData=(req)=>{
     return false;
 };
 
-
-
 const populateProductDetail=(productDetail)=>{
     const populatedProductDetails={
         product_id:productDetail.product_id,
@@ -34,6 +35,13 @@ const populateProductDetail=(productDetail)=>{
     return populatedProductDetails;
 };
 
+const uploadImageAndDeleteFromDisk=async(file)=>{
+    const filePath=TMP_DIR_PATH+"/"+file.filename;
+    const image=await uploadImageToCloud(filePath);
+    deleteImageFromDisk(filePath);
+    return image;
+};
+
 const getAllProducts=async(req,res)=>{
     try{
         const allProductDetails=await productService.getAllProducts();
@@ -42,6 +50,24 @@ const getAllProducts=async(req,res)=>{
         .send({
             message:"All products fetched successfully",
             products:allProductDetails,
+        });
+    }catch(err){
+        res.status(SERVER_ERROR_STATUS)
+            .send({message:err.message});
+    }
+};
+
+const getSoftDeletedProducts=async(req,res)=>{
+    const {page,limit}=req.query;
+    try{
+        const allProductDetails=await productService.getSoftDeletedProducts(page,limit);
+        const total=await productService.countSoftDeletedProducts();
+        res
+        .status(SUCCESS_STATUS)
+        .send({
+            message:"All products fetched successfully",
+            products:allProductDetails,
+            total,
         });
     }catch(err){
         res.status(SERVER_ERROR_STATUS)
@@ -85,10 +111,7 @@ const addProduct=async(req,res)=>{
             .send({message:"Brand does not exist"});
         }
         const product=JSON.parse(req.body.product);
-        const TMP_DIR_PATH="./tmp";
-        const filePath=TMP_DIR_PATH+"/"+req.file.filename;
-        const image=await uploadImageToCloud(filePath);
-        deleteImageFromDisk(filePath);
+        const image=await uploadImageAndDeleteFromDisk(req.file);
         const productRes=await productService.create({...product,image});
         const savedProduct=await productService.save(productRes);
         const savedproductDetails=await productDetailsService.saveProductDetailsForProduct(product.productDetails.map((detail)=>({...detail,product_id:savedProduct._id})));
@@ -101,6 +124,41 @@ const addProduct=async(req,res)=>{
     }
 };
 
+const softDeleteProductById=async(req,res)=>{
+    const {id}=req.params;
+    try{
+        if(!await productService.isProductExist(id)){
+            res.status(BAD_REQUEST_STATUS)
+            .send({message:"Product does not exist"});
+            return;
+        }
+        await productService.softDeleteByProductId(id);
+        res
+        .status(SUCCESS_STATUS)
+        .send({
+            '_id':id,
+            message:"Product deleted successfully",
+        });
+    }
+    catch(err){
+        res.status(SERVER_ERROR_STATUS)
+            .send({message:err.message});
+    }
+};
+
+const restoreSoftDeletedProductById=async(req,res)=>{
+    try{
+        const {id}=req.params;
+        await productService.restoreProductById(id);
+        return res.status(SUCCESS_STATUS).send({
+            message:"Product restored successfully",
+            _id:id,});
+    }
+    catch(e){
+        console.log(e.message);
+        return res.status(SERVER_ERROR_STATUS).send({message:"There was an error while restoring the product"});
+    }
+};
 
 const deleteProductById=async(req,res)=>{
     const {id}=req.params;
@@ -128,10 +186,7 @@ const getNewImageUrl=async(req)=>{
         const product=await productService.getProductById(req.params.id);
         return product.image;
     }
-    const TMP_DIR_PATH="./tmp";
-    const filePath=TMP_DIR_PATH+"/"+req.file.filename;
-    const imageUrl=await uploadImageToCloud(filePath);
-    deleteImageFromDisk(filePath);
+    const imageUrl=await uploadImageAndDeleteFromDisk(req.file);
     return imageUrl;
 };
 
@@ -174,4 +229,5 @@ const updateByProductId=async(req,res)=>{
     }
 };
 
-export {getAllProducts,getProductById,addProduct,deleteProductById,updateByProductId};
+export {getAllProducts,getSoftDeletedProducts,getProductById,addProduct,
+    softDeleteProductById,restoreSoftDeletedProductById,deleteProductById,updateByProductId};

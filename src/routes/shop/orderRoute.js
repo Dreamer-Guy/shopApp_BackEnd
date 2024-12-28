@@ -1,12 +1,12 @@
 import express from "express"
-import verifyUserJWT from '../middlewares/verifyUserJWT.js';
+import verifyUserJWT from '../../middlewares/verifyUserJWT.js';
 import {
     placeOrder,
     updateStatusOrder,
     updatePaymentStatusOrder,
     updateOrder,deleteOrderById,
     getOrderByUserId} 
-    from "../controllers/shop-controllers/order-controllers/orderController.js";
+    from "../../controllers/shop-controllers/order-controllers/orderController.js";
 
 const orderRoute =express.Router()
 
