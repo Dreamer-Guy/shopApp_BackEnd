@@ -66,7 +66,7 @@ const getCart = async (req, res) => {
         if (!success) {
             return res.status(BAD_REQUEST_STATUS).send({ success: false, message: data })
         }
-        return res.status(SUCCESS_STATUS).json(data);
+        return res.status(SUCCESS_STATUS).json({items: data.items,success:true});
     }
     catch (error) {
         return res.status(SERVER_ERROR_STATUS).send({ success: false, message: "Server error" })
