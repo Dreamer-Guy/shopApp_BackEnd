@@ -46,7 +46,10 @@ const cartService = {
                 cart.items.splice(itemIndex,1)
             }
             await cart.save();
-            return {success:true,data:cart};
+            const populatedCart = await Cart.findOne({userId})
+                .populate('items.productId')
+                .lean();
+            return {success:true, data:populatedCart};
         }
         return {success:false,data:"Product Id is required"};
     },
