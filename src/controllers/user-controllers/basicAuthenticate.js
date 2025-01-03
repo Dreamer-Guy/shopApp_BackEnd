@@ -156,5 +156,6 @@ const getLoginStatus=async(req,res)=>{
     }
 };
 
+
 export {loginUser, registerUser,logoutUser,getLoginStatus};
 

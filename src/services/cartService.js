@@ -22,7 +22,6 @@ const cartService = {
     },
 
     async updateCart(userId,productId,quantity){
-        console.log(userId,productId,quantity);
         const cart=await Cart.findOne({userId})
         if(!cart){
             return ({success:false,data:"Cart not found"});
@@ -34,10 +33,11 @@ const cartService = {
               return ({success:false,data:"Product not found in cart"})
             }
             if(quantity){
-                if(cart.items[itemIndex].quantity<quantity){
+               
+                cart.items[itemIndex].quantity=quantity
+                 if(cart.items[itemIndex].quantity<0){
                    return ({success:false,data:"Invalid quantity"})
                 }
-                cart.items[itemIndex].quantity-=quantity
                 if(cart.items[itemIndex].quantity===0){
                     cart.items.splice(itemIndex,1)
                 }

@@ -29,7 +29,7 @@ const userServices = {
     },
 
     async updateUserByID(id, newUserInfo){
-        const updatedUser=await User.findByIdAndUpdate(id, newUserInfo);
+        const updatedUser=await User.findByIdAndUpdate(id, newUserInfo,{new:true});
         return updatedUser;
     },
 
