@@ -67,7 +67,10 @@ const cartService = {
             }
             cart.items.splice(itemIndex,1);
             await cart.save();
-            return {success:true,data:cart};
+            const populatedCart = await Cart.findOne({userId})
+                .populate('items.productId')
+                .lean();
+            return {success:true, data:populatedCart};
         }
         return {success:false,data:"Product Id is required"}
     },
@@ -86,13 +89,16 @@ const cartService = {
     },
 
     async deleteCartByUserId(userId){
-        if(!await Cart.findOne({userId:userId})){
+        const cart = await Cart.findOne({userId:userId})
+        if(!cart){
             return ({success:false,data:"Cart not found"});
         }
-        await Cart.findOneAndDelete({userId:userId});
+        cart.items = [];
+        await cart.save();
         return ({success:true,data:{
             userId:userId,
-            items:[]}});
+            items:[]
+        }});
     },
 }
 

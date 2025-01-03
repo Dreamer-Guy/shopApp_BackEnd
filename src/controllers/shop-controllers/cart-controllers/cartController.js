@@ -35,11 +35,11 @@ const addToCart = async (req, res) => {
 const removeFromCart = async (req, res) => {
     try {
       const {productId} = req.params;
-      const { success, data } = await cartServices.deleteItemFromCart(req.user_id, productId)
+      const { success, data } = await cartServices.deleteItemFromCart(req.user._id, productId)
       if (!success) {
         return res.status(SERVER_ERROR_STATUS).send({ success: false, message: data })
       }
-      return res.status(SUCCESS_STATUS).json(data);
+      return res.status(SUCCESS_STATUS).json({data, success: true});
     }
     catch (error) {
       return res.status(SERVER_ERROR_STATUS).send({ success: false, message: "Server error" })
