@@ -22,6 +22,7 @@ const cartService = {
     },
 
     async updateCart(userId,productId,quantity){
+        console.log(userId,productId,quantity);
         const cart=await Cart.findOne({userId})
         if(!cart){
             return ({success:false,data:"Cart not found"});

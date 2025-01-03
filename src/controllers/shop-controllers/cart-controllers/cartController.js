@@ -49,7 +49,7 @@ const removeFromCart = async (req, res) => {
 const updateCart = async (req, res) => {
   try {
       const {productId, quantity } = req.body;
-      const { success, data } = await cartServices.updateCart(req.user_id, productId, quantity);
+      const { success, data } = await cartServices.updateCart(  req.user._id, productId, quantity);
       if (!success) {
         return res.status(SERVER_ERROR_STATUS).send({ success: false, message: data })
       }
@@ -66,7 +66,7 @@ const getCart = async (req, res) => {
         if (!success) {
             return res.status(BAD_REQUEST_STATUS).send({ success: false, message: data })
         }
-        return res.status(SUCCESS_STATUS).json({items: data.items,success:true});
+        return res.status(SUCCESS_STATUS).json({data,success:true});
     }
     catch (error) {
         return res.status(SERVER_ERROR_STATUS).send({ success: false, message: "Server error" })
