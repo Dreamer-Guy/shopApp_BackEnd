@@ -4,6 +4,7 @@ import express from 'express';
 import mongoose from "./src/config/mongoose.js";
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
+import StaffProperties from './src/models/StaffProperties.js';
 
 import cartRouter from "./src/routes/shop/cartRoute.js";
 import userRouter from "./src/routes/shop/userRoute.js";
@@ -18,6 +19,7 @@ import adminCategoryRouter from './src/routes/admin/category.js';
 import adminCategoryTypicalDetails from "./src/routes/admin/categoryTypical.js";
 import adminCustomerRouter from "./src/routes/admin/customer.js";
 import adminrevenueRouter from "./src/routes/admin/revenue.js";
+import adminStaffRouter from "./src/routes/admin/staff.js";
 
 import orderRouter from "./src/routes/shop/orderRoute.js"
 
@@ -52,6 +54,7 @@ app.use("/admin/categories", adminCategoryRouter);
 app.use("/admin/category-typicals", adminCategoryTypicalDetails);
 app.use("/admin/customers", adminCustomerRouter);
 app.use("/admin/revenues", adminrevenueRouter);
+app.use("/admin/staffs", adminStaffRouter);
 
 app.use("/utils", utilsRouter);
 

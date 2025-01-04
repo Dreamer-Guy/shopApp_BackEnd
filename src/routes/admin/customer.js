@@ -5,7 +5,7 @@ import express from "express";
 const router = express.Router();
 
 router.get("/all", getAllCustomers);
-router.get("/ban/:id",banAccount);
-router.get("/unban/:id",unbanAccount);
+router.post("/ban/:id",banAccount);
+router.post("/unban/:id",unbanAccount);
 
 export default router;

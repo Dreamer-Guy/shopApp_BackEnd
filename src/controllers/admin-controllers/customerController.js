@@ -24,10 +24,14 @@ const getAllCustomers=async(req,res)=>{
     try{
         const {page,limit,sort}=getFormattedQuery(req.query);
         const customers=await userService.getAllCustomers(page,limit,sort);
-        return res.status(OK_STATUS).json(customers.map(customer=>({
-            ...customer._doc,
-            createdAt:formatDate(customer.createdAt),
-        })));
+        const totalCustomers=await userService.countCustomers();
+        return res.status(OK_STATUS).send({
+            customers:customers.map(customer=>({
+                ...customer._doc,
+                createdAt:formatDate(customer.createdAt),
+            })),
+            totalCustomers,
+        });
     }
     catch(e){
         console.log(e);

@@ -1,5 +1,24 @@
-import { banAccount } from "../controllers/admin-controllers/customerController.js";
+
 import User from "../models/User.js";
+
+
+const CUSTOMER_ROLE = "user";
+const STAFF_ROLE = "staff";
+const ADMIN_ROLE = "admin";
+
+const getAllUsersBasedOnRole = async (role,page,limit,sort) => {
+    const users=await User.find({role})
+        .sort(sort).skip((page-1)*limit).limit(limit)||[];
+    return users;
+};
+
+const countUsersBasedOnRole = async (role) => {
+    const totalUsers = await User.countDocuments({
+        role
+    });
+    return totalUsers;
+};
+
 
 const userServices = {
 
@@ -11,6 +30,14 @@ const userServices = {
     async saveUser(user){
         await user.save();
         return user;
+    },
+
+    async isUserExist(emailOrUserName){
+        return await User.exists({$or: [{email: emailOrUserName}, {userName: emailOrUserName}]});
+    },
+    
+    async isUserExistById(id){
+        return await User.exists({_id:id});
     },
 
     async getUserByEmailOrUserName(email, userName){
@@ -42,14 +69,29 @@ const userServices = {
         const user=await User.findOne({$or: [{email}, {userName}]});
         return user;
     },
+    async checkIfUserExistsByUserName(userName){
+        return  await User.exists({userName});
+    },
     async checkIfUserExistsByEmail(email){
         const user=await User.findOne({email});
         return user?true:false;
     },
-    async getAllCustomers(page,limit,sorts){
-        const customers=await User.find({role:"user"})
-        .sort(sorts).skip((page-1)*limit).limit(limit);
+    async getAllCustomers(page,limit,sort){
+        const customers=await getAllUsersBasedOnRole(CUSTOMER_ROLE,page,limit,sort);
         return customers;
+    },
+    async countCustomers(){
+        const totalCustomers=await countUsersBasedOnRole(CUSTOMER_ROLE);
+        return totalCustomers;
+    },
+
+    async getAllStaffs(page,limit,sort){
+        const staffs=await getAllUsersBasedOnRole(STAFF_ROLE,page,limit,sort);
+        return staffs;
+    },
+
+    async countStaffs(){
+        return await countUsersBasedOnRole(STAFF_ROLE);
     },
 
     async banAccount(id){
