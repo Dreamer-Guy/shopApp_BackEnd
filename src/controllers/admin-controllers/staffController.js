@@ -118,7 +118,8 @@ const deleteStaffAccount=async(req,res)=>{
         if(!await userService.isUserExistById(id)){
             return res.status(BAD_REQUEST).json({message:"Staff account does not exist"});
         }
-        await userService.deleteUserByID(req.params.id);
+        await userService.deleteUserByID(id);
+        await staffService.deleteStaffProperties(id);
         return res.status(SUCCESS).send({
             _id: id,
             message: "Staff account deleted successfully",
@@ -130,4 +131,20 @@ const deleteStaffAccount=async(req,res)=>{
     }
 };
 
-export {createStaffAccount,deleteStaffAccount,getAllStaffs,getStaffProperties};
+const updateStaffProperties=async(req,res)=>{
+    try{
+        const {id}=req.params;
+        if(!await userService.isUserExistById(id)){
+            return res.status(BAD_REQUEST).json({message:"Staff account does not exist"});
+        }
+        const {staffProperties}=req.body;
+        const updatedStaff=await staffService.updateStaffProperties(id,staffProperties);
+        return res.status(SUCCESS).send(updatedStaff);
+    }
+    catch(e){
+        console.log(e);
+        return res.status(INTERNAL_SERVER_ERROR).json({message:"Internal Server Error"});
+    }
+}
+
+export {createStaffAccount,deleteStaffAccount,getAllStaffs,getStaffProperties,updateStaffProperties};
