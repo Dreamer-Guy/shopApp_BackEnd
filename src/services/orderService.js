@@ -136,11 +136,14 @@ const orderService={
         return orders;
     },
 
-    getOrdersFilterStatusAndPayment:async(status,paymentStatus,sort)=>{
+    getOrdersFilterStatusAndPayment:async(status,paymentStatus,sort,page,limit)=>{
         const formatedSortOQuery=formatSortQuery(sort);
         const query=buildQueryFilterStatusAndPayment(status,paymentStatus);
         const orders=await Order
-            .find(query).sort(formatedSortOQuery).lean();
+            .find(query).sort(formatedSortOQuery)
+            .skip((page-1)*limit)
+            .limit(limit)
+            .lean();
         return orders;
     },
     countOrdersFilterStatusAndPayment:async(status,paymentStatus)=>{

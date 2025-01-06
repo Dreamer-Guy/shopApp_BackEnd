@@ -7,7 +7,8 @@ const BAD_REQUEST_STATUS=400;
 const getAllOrders=async(req,res)=>{
     try{
         const {status,paymentStatus,sort}=req.query;
-        const orders=await orderService.getOrdersFilterStatusAndPayment(status,paymentStatus,sort);
+        const {page,limit}=req.query;
+        const orders=await orderService.getOrdersFilterStatusAndPayment(status,paymentStatus,sort,page,limit);
         const totalOrders=await orderService.countOrdersFilterStatusAndPayment(status,paymentStatus);
         return res.status(SUCCESS_STATUS).send({
             orders,
