@@ -46,7 +46,6 @@ const placeOrder = async (req,res)=>{
 const updateStatusOrder =async(req,res)=>
 {
     try{
-
         const orderId =req.params.id
         const {status} =req.body
         if(!orderId||!status){

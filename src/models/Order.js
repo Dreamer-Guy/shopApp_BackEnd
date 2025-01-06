@@ -7,10 +7,17 @@ const orderSchema = new mongoose.Schema({
     },
     items: [
         {
-            productId: {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: 'Product',
-                required: true,
+            name:{
+                type:String,
+                required:true
+            },
+            price:{
+                type:Number,
+                required:true
+            },
+            image:{
+                type:String,
+                required:true
             },
             quantity: {
                 type: Number,
@@ -27,12 +34,35 @@ const orderSchema = new mongoose.Schema({
     status:{
         type:String,
         required:true,
-        default:"pending"
+        default:"pending",
+        enum:["pending","processing","completed"]
     },
     paymentStatus:{
         required:true,
         type:Boolean,
         default:false
+    },
+    address:{
+        street:{
+            type:String,
+            required:true
+        },
+        city:{
+            type:String,
+            required:true
+        },
+        postalCode:{
+            type:String,
+            required:true
+        },
+        phone:{
+            type:String,
+            required:true
+        },
+        notes:{
+            type:String,
+            default:""
+        },
     },
     createdAt: {type: Date,default: Date.now},
 });
