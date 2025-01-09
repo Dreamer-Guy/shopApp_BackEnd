@@ -5,10 +5,9 @@ import { updateUserProfile } from "../../controllers/user-controllers/userContro
 import { redirectOauthGoogle, authGoogleCallback } 
 from "../../controllers/user-controllers/googleAuthenticate.js";
 import verifyUserJWT from "../../middlewares/verifyUserJWT.js";
+import upload from "../../config/multer.js";
 import express from "express";
-
 const userRouter = express.Router();
-
 userRouter.post("/login", loginUser);
 userRouter.post("/register", registerUser);
 userRouter.post("/logout", logoutUser);
@@ -17,5 +16,5 @@ userRouter.get("/auth/google",redirectOauthGoogle);
 userRouter.get("/auth/google/callback",authGoogleCallback);
 
 userRouter.get("/status",verifyUserJWT,getLoginStatus);
-userRouter.put("/updateProfile",verifyUserJWT,updateUserProfile);
+userRouter.put("/updateProfile",verifyUserJWT,upload.single("avatar"),updateUserProfile);
 export default userRouter;  
