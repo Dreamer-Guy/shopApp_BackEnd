@@ -20,54 +20,64 @@ const getFormattedQuery=(query)=>{
     return {page,limit,sort};
 };
 
-const getAllCustomers=async(req,res)=>{
-    try{
-        const {page,limit,sort}=getFormattedQuery(req.query);
-        const customers=await userService.getAllCustomers(page,limit,sort);
-        const totalCustomers=await userService.countCustomers();
-        return res.status(OK_STATUS).send({
-            customers:customers.map(customer=>({
-                ...customer._doc,
-                createdAt:formatDate(customer.createdAt),
-            })),
-            totalCustomers,
-        });
-    }
-    catch(e){
-        console.log(e);
-        return res.status(INTERNAL_SERVER_ERROR).json({message:"Internal server error"});
-    }
-};
-
-const banAccount=async(req,res)=>{
-    try{
-        const {id}=req.params;
-        if(!await userService.getUserByID(id)){
-            return res.status(BAD_REQUEST).json({message:"User not found"});
+const customerController = {
+    getAllCustomers: async (req, res) => {
+        try {
+            const { page, limit, sort } = getFormattedQuery(req.query);
+            const customers = await userService.getAllCustomers(page, limit, sort);
+            const totalCustomers = await userService.countCustomers();
+            return res.status(OK_STATUS).send({
+                customers: customers.map(customer => ({
+                    ...customer._doc,
+                    createdAt: formatDate(customer.createdAt),
+                })),
+                totalCustomers,
+            });
+        } catch (e) {
+            console.log(e);
+            return res.status(INTERNAL_SERVER_ERROR).json({ message: "Internal server error" });
         }
-        await userService.banAccount(id);
-        return res.status(OK_STATUS).send(id);
-    }
-    catch(e){
-        console.log(e);
-        return res.status(INTERNAL_SERVER_ERROR).json({message:"Internal server error"});
-    }
-};
+    },
 
-const unbanAccount=async(req,res)=>{
-    try{
-        const {id}=req.params;
-        if(!await userService.getUserByID(id)){
-            return res.status(BAD_REQUEST).json({message:"User not found"});
+    banAccount: async (req, res) => {
+        try {
+            const { id } = req.params;
+            if (!await userService.getUserByID(id)) {
+                return res.status(BAD_REQUEST).json({ message: "User not found" });
+            }
+            await userService.banAccount(id);
+            return res.status(OK_STATUS).send(id);
+        } catch (e) {
+            console.log(e);
+            return res.status(INTERNAL_SERVER_ERROR).json({ message: "Internal server error" });
         }
-        await userService.unbanAccount(id);
-        return res.status(OK_STATUS).send(id);
-    }
-    catch(e){
-        console.log(e);
-        return res.status(INTERNAL_SERVER_ERROR).json({message:"Internal server error"});
-    }
+    },
+
+    unbanAccount: async (req, res) => {
+        try {
+            const { id } = req.params;
+            if (!await userService.getUserByID(id)) {
+                return res.status(BAD_REQUEST).json({ message: "User not found" });
+            }
+            await userService.unbanAccount(id);
+            return res.status(OK_STATUS).send(id);
+        } catch (e) {
+            console.log(e);
+            return res.status(INTERNAL_SERVER_ERROR).json({ message: "Internal server error" });
+        }
+    },
+    getTotalCustomers: async (req, res) => {
+        try {
+            const totalCustomers = await userService.countCustomers();
+            return res
+            .send(String(totalCustomers));
+        } catch (e) {
+            console.log(e);
+            return res.status(INTERNAL_SERVER_ERROR).json({ message: "Internal server error" });
+        }
+    },
 };
 
+export default customerController;
 
-export {getAllCustomers,banAccount,unbanAccount};
+

@@ -1,4 +1,5 @@
 import orderService from "../../services/orderService.js";
+import userService from "../../services/userService.js";
 
 const SUCCESS_STATUS = 200;
 const BAD_REQUEST_STATUS = 400;
@@ -34,7 +35,8 @@ const fullfillMissingTimeCaseYear=(revenueReport,year,length)=>{
         return {...revenueReport};
     }
     const newRevenueReport={...revenueReport};
-    const timeRange=Array.from({length:length},(_,index)=>index+year).map((year)=>year.toString());
+    const timeRange=Array.from({length:length},(_,index)=>Number(index)+Number(year)).map((year)=>year.toString());
+    console.log(timeRange);
     timeRange.forEach((year)=>{
         if(!newRevenueReport[year]){
             newRevenueReport[year]={total:0,count:0};
@@ -270,78 +272,152 @@ const convertArrayofRevenueToRevenue=(revenueArr)=>{
 
 //controller
 
-const getRevenueByYear=async(req,res)=>{
-    try{
-        const {year,length=DEFAULT_TIME_RANGE}=req.query;
-        const timeRange={
-            start:new Date(`${year}-01-01`),
-            end:new Date(`${year+length-1}-01-01`),
-        };
-        const orders=await orderService.getOrdersFromGivenTimeRange(timeRange);
-        const revenue=getRevenueReportByYear(orders,year,length);
-        return res.send({
-            label:convertArrayofRevenueToLabel(revenue),
-            revenue:convertArrayofRevenueToRevenue(revenue),
-        });
-    }
-    catch(e){
-        console.log(e.message);
-        return res.status(SERVER_ERROR_STATUS).send({success:false,message:"Server error"});
-    }
+const revenueController={
+    getRevenueByYear:async(req,res)=>{
+        try{
+            const {year,length=DEFAULT_TIME_RANGE}=req.query;
+            const timeRange={
+                start:new Date(`${year}-01-01`),
+                end:new Date(`${year+length-1}-01-01`),
+            };
+            const orders=await orderService.getOrdersFromGivenTimeRange(timeRange);
+            const revenue=getRevenueReportByYear(orders,year,length);
+            return res.send({
+                label:convertArrayofRevenueToLabel(revenue),
+                revenue:convertArrayofRevenueToRevenue(revenue),
+            });
+        }
+        catch(e){
+            console.log(e.message);
+            return res.status(SERVER_ERROR_STATUS).send({success:false,message:"Server error"});
+        }
+    },
+    
+    getRevenueByMonth:async(req,res)=>{
+        try{
+            //expect month is 0-indexed
+            const {year,month,length=DEFAULT_TIME_RANGE}=req.query;
+            const timeRange={
+                start:new Date(year,month,1),
+                end:calculateEndTimeCaseMonth({
+                    month:parseInt(month),year:parseInt(year)},length),
+            };
+            const orders=await orderService.getOrdersFromGivenTimeRange(timeRange);
+            const startTime={
+                month:parseInt(month),
+                year:parseInt(year),
+            };
+            const revenue=getRevenueReportByMonth(orders,startTime,length);
+            return res.send({
+                label:convertArrayofRevenueToLabel(revenue),
+                revenue:convertArrayofRevenueToRevenue(revenue),
+            });
+        }
+        catch(e){
+            console.log(e.message);
+            return res.status(SERVER_ERROR_STATUS).send({success:false,message:"Server error"});
+        }
+    },
+    
+    getRevenueByDay:async(req,res)=>{
+        try{
+            //expect month is 0-indexed
+            const {year,month,day,length=DEFAULT_TIME_RANGE}=req.query;
+            const timeRange={
+                start:new Date(year,month,day),
+                end:calculateEndTimeCaseDay({
+                    year:parseInt(year),month:parseInt(month),day:parseInt(day)},length),
+            };
+            const orders=await orderService.getOrdersFromGivenTimeRange(timeRange);
+            const startTime={
+                day:parseInt(day),
+                month:parseInt(month),
+                year:parseInt(year),
+            };
+            const revenue=getRevenueReportByDay(orders,startTime,length);
+            return res.send({
+                label:convertArrayofRevenueToLabel(revenue),
+                revenue:convertArrayofRevenueToRevenue(revenue),
+            });
+        }
+        catch(e){
+            console.log(e.message);
+            return res.status(SERVER_ERROR_STATUS).send({success:false,message:"Server error"});
+        }
+    },
+    getMetricsByYear:async(req,res)=>{
+        try{
+            const {year,length=DEFAULT_TIME_RANGE}=req.query;
+            const timeRange={
+                start:new Date(`${year}-01-01`),
+                end:new Date(`${year+length-1}-01-01`),
+            };
+            const totalOrders=await orderService.countOrdersInTimeRange(timeRange);
+            const revenue=await orderService.calculateTotalRevenueInTimeRange(timeRange);
+            const totalCustomers=await userService.countCustomersInTimeRange(timeRange);
+            const totalPurchasedProducts=await orderService.countPurchasedProductsInTimeRange(timeRange);
+            return res.send({
+                totalOrders:totalOrders,
+                totalRevenue:revenue, 
+                totalCustomers:totalCustomers,
+                totalPurchasedProducts:totalPurchasedProducts,
+            });
+        }
+        catch(e){
+            console.log(e.message);
+            return res.status(SERVER_ERROR_STATUS).send({success:false,message:"Server error"});
+        }
+    },
+    getMetricsByMonth:async(req,res)=>{
+        try{
+            const {year,month,length=DEFAULT_TIME_RANGE}=req.query;
+            const timeRange={
+                start:new Date(year,month,1),
+                end:calculateEndTimeCaseMonth({
+                    month:parseInt(month),year:parseInt(year)},length),
+            };
+            const totalOrders=await orderService.countOrdersInTimeRange(timeRange);
+            const revenue=await orderService.calculateTotalRevenueInTimeRange(timeRange);
+            const totalCustomers=await userService.countCustomersInTimeRange(timeRange);
+            const totalPurchasedProducts=await orderService.countPurchasedProductsInTimeRange(timeRange);
+            return res.send({
+                totalOrders:totalOrders,
+                totalRevenue:revenue, 
+                totalCustomers:totalCustomers,
+                totalPurchasedProducts:totalPurchasedProducts,
+            });
+        }
+        catch(e){
+            console.log(e.message);
+            return res.status(SERVER_ERROR_STATUS).send({success:false,message:"Server error"});
+        }
+    },
+    getMetricsByDay:async(req,res)=>{
+        try{
+            const {year,month,day,length=DEFAULT_TIME_RANGE}=req.query;
+            const timeRange={
+                start:new Date(year,month,day),
+                end:calculateEndTimeCaseDay({
+                    year:parseInt(year),month:parseInt(month),day:parseInt(day)},length),
+            };
+            const totalOrders=await orderService.countOrdersInTimeRange(timeRange);
+            const revenue=await orderService.calculateTotalRevenueInTimeRange(timeRange);
+            const totalCustomers=await userService.countCustomersInTimeRange(timeRange);
+            const totalPurchasedProducts=await orderService.countPurchasedProductsInTimeRange(timeRange);
+            return res.send({
+                totalOrders:totalOrders,
+                totalRevenue:revenue, 
+                totalCustomers:totalCustomers,
+                totalPurchasedProducts:totalPurchasedProducts,
+            });
+        }
+        catch(e){
+            console.log(e.message);
+            return res.status(SERVER_ERROR_STATUS).send({success:false,message:"Server error"});
+        }
+    },
+
 };
 
-const getRevenueByMonth=async(req,res)=>{
-    try{
-        //expect month is 0-indexed
-        const {year,month,length=DEFAULT_TIME_RANGE}=req.query;
-        const timeRange={
-            start:new Date(year,month,1),
-            end:calculateEndTimeCaseMonth({
-                month:parseInt(month),year:parseInt(year)},length),
-        };
-        const orders=await orderService.getOrdersFromGivenTimeRange(timeRange);
-        const startTime={
-            month:parseInt(month),
-            year:parseInt(year),
-        };
-        const revenue=getRevenueReportByMonth(orders,startTime,length);
-        return res.send({
-            label:convertArrayofRevenueToLabel(revenue),
-            revenue:convertArrayofRevenueToRevenue(revenue),
-        });
-    }
-    catch(e){
-        console.log(e.message);
-        return res.status(SERVER_ERROR_STATUS).send({success:false,message:"Server error"});
-    }
-}
 
-const getRevenueByDay=async(req,res)=>{
-    try{
-        //expect month is 0-indexed
-        const {year,month,day,length=DEFAULT_TIME_RANGE}=req.query;
-        const timeRange={
-            start:new Date(year,month,day),
-            end:calculateEndTimeCaseDay({
-                year:parseInt(year),month:parseInt(month),day:parseInt(day)},length),
-        };
-        const orders=await orderService.getOrdersFromGivenTimeRange(timeRange);
-        const startTime={
-            day:parseInt(day),
-            month:parseInt(month),
-            year:parseInt(year),
-        };
-        const revenue=getRevenueReportByDay(orders,startTime,length);
-        return res.send({
-            label:convertArrayofRevenueToLabel(revenue),
-            revenue:convertArrayofRevenueToRevenue(revenue),
-        });
-    }
-    catch(e){
-        console.log(e.message);
-        return res.status(SERVER_ERROR_STATUS).send({success:false,message:"Server error"});
-    }
-};
-
-
-export {getRevenueByYear,getRevenueByMonth,getRevenueByDay};
+export default revenueController;

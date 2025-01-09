@@ -1,4 +1,4 @@
-import mongoose, { mongo } from "mongoose";
+import mongoose, { get, mongo } from "mongoose";
 import Product from "../models/Product.js";
 
 
@@ -184,6 +184,27 @@ const productService = {
         product.rating = (product.rating * product.numReviews + Number(rating)) / (product.numReviews + 1);
         product.numReviews += 1;
         await product.save();
+    },
+    countTotalProducts: async () => {
+        const count = await Product.countDocuments({isDeleted:false});
+        return count;
+    },
+    getTotalSales: async () => {
+        const totalSales = await Product.aggregate([
+            {
+                $group: {
+                    _id: null,
+                    totalSales: { $sum: '$totalSales' }
+                }
+            }
+        ]);
+        return totalSales[0].totalSales;
+    },
+    getTopSalesProducts: async (limit) => {
+        const products = await Product
+        .find({isDeleted:false})
+        .sort({ totalSales: -1 }).limit(Number(limit));
+        return products;
     },
 };
 

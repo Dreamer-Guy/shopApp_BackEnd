@@ -105,6 +105,17 @@ const userServices = {
         user.status="active";
         await user.save();
     },
+
+    async countCustomersInTimeRange(timeRange){
+        const totalCustomers = await User.countDocuments({
+            role: CUSTOMER_ROLE,
+            createdAt:{
+                $gte:timeRange.start,
+                $lte:timeRange.end
+            }
+        });
+        return totalCustomers;
+    },
 };
 
 export default userServices;
