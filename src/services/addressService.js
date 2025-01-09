@@ -55,7 +55,10 @@ const addressService = {
 
         return address;
     },
-
+    async getAddressByUserId(userId){
+        const address = await Address.findOne({userId:userId});
+        return address;
+    }
 };
 
 export default addressService;
