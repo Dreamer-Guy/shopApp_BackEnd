@@ -38,19 +38,19 @@ const orderSchema = new mongoose.Schema({
     address:{
         street:{
             type:String,
-            required:false
+            required:true
         },
         city:{
             type:String,
-            required:false
+            required:true
         },
         postalCode:{
             type:String,
-            required:false
+            required:true
         },
         phone:{
             type:String,
-            required:false
+            required:true
         },
         notes:{
             type:String,

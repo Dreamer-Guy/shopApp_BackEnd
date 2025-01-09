@@ -1,5 +1,5 @@
 import orderService from "../../../services/orderService.js";
-import userService from "../../../services/userService.js";
+import addressService from "../../../services/addressService.js";
 import cartService from "../../../services/cartService.js";
 const SUCCESS_STATUS = process.env.SUCCESS_STATUS;
 const BAD_REQUEST_STATUS = process.env.BAD_REQUEST_STATUS;
@@ -12,6 +12,17 @@ const placeOrder = async (req,res)=>{
         const userId =req.user._id
         if(!userId){
             return res.status(BAD_REQUEST_STATUS).send({success:false,message:"Invalidssss request"})
+        }
+        const address = await addressService.getAddressByUserId(userId);
+        if(!address){
+            return res.status(BAD_REQUEST_STATUS).send({success:false,message:"Address not found"})
+        }
+        const addressFormatted ={
+            street:address.street,
+            city:address.city,
+            postalCode:address.postalCode,
+            phone:address.phone,
+            notes:address.notes
         }
         const {items} =req.body;
         const invalidProductIds =await orderService.getInvalidItemsOfCart(items);
@@ -26,7 +37,7 @@ const placeOrder = async (req,res)=>{
                 return res.status(SERVER_ERROR_STATUS).send({success:false,message:"Can not remove item from cart"})
             }
         }
-        const order =await orderService.createOrder(userId,items)
+        const order =await orderService.createOrder(userId,items,addressFormatted)
         console.log(order)
         res.status(SUCCESS_STATUS).send({success:true,message:"Order successful"})
     }

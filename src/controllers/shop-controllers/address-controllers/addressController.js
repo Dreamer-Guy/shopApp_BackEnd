@@ -122,5 +122,4 @@ const setDefaultAddress = async(req, res) => {
         });
     }
 };
-
 export { getAllAddresses, createAddress, deleteAddress, updateAddress, setDefaultAddress};
