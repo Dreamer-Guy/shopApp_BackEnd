@@ -118,21 +118,19 @@ const orderService={
     },
 
     async getOrdersFromGivenTimeRange(timeRange){
-        // const orders= await Order.find({
-        //     createdAt:{
-        //         $and:[
-        //             {$gte:timeRange.start},
-        //             {$lte:timeRange.end}
-        //         ]
-        //     }
-        // })
-        const orders=mockOrders.filter(order=>{
-            const orderDate = new Date(order.createdAt)
-            if(orderDate>=timeRange.start && orderDate<=timeRange.end){
-                return true;
+        const orders= await Order.find({
+            createdAt:{
+                $gte:timeRange.start,
+                $lte:timeRange.end
             }
-            return false;
-        })
+        });
+        // const orders=mockOrders.filter(order=>{
+        //     const orderDate = new Date(order.createdAt)
+        //     if(orderDate>=timeRange.start && orderDate<=timeRange.end){
+        //         return true;
+        //     }
+        //     return false;
+        // })
         return orders;
     },
 
@@ -160,7 +158,45 @@ const orderService={
         .populate('userId')
         .lean();
         return order;
+    },
+    getRecentOrders:async(limit)=>{
+        const orders=await Order.find()
+        .sort({createdAt:-1}).limit(limit)
+        .populate('userId')
+        .lean();
+        return orders;
+    },
+    getTotalRevenue:async()=>{
+        const orders=await Order.find();
+        const totalRevenue=orders.reduce((acc,order)=>acc+order.total,0);
+        return totalRevenue;
+    },
+    getTotalOrders:async()=>{
+        const totalOrders=await Order.countDocuments();
+        return totalOrders;
+    },
+    countOrdersInTimeRange:async(timeRange)=>{
+        return await Order.countDocuments({
+            createdAt:{
+                $gte:timeRange.start,
+                $lte:timeRange.end
+            }
+        });
+    },
+
+    calculateTotalRevenueInTimeRange:async(timeRange)=>{
+        const orders=await orderService.getOrdersFromGivenTimeRange(timeRange);
+        const totalRevenue=orders.reduce((acc,order)=>acc+order.total,0);
+        return totalRevenue;
+    },
+    countPurchasedProductsInTimeRange:async(timeRange)=>{
+        const orders=await orderService.getOrdersFromGivenTimeRange(timeRange);
+        const totalPurchased=orders.reduce((acc,order)=>{
+            const totalPurchasedInAnOrder=order.items.reduce((acc,item)=>acc+item.quantity,0);
+            return acc+totalPurchasedInAnOrder;
+        },0);
+        return totalPurchased;
     }
-    
 }
+
 export default orderService;
