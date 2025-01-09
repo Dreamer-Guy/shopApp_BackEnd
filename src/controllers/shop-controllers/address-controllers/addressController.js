@@ -1,4 +1,4 @@
-import addressService from "../../services/addressServices.js";
+import addressService from "../../../services/addressService.js";
 
 const SUCCESS_STATUS = 200;
 const BAD_REQUEST_STATUS = 400;

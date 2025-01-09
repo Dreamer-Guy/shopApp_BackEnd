@@ -56,7 +56,10 @@ const orderService={
         return true;
     },
     async createOrder(userId,items){
+        console.log(items)
+        console.log(userId)
         const total = await calculateTotalAmount(items);
+        console.log(total)
         const order = new Order({userId:userId,items:items,total:total});
         await order.save();
         return order;

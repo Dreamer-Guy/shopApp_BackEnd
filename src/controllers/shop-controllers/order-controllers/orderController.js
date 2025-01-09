@@ -5,37 +5,29 @@ const SUCCESS_STATUS = process.env.SUCCESS_STATUS;
 const BAD_REQUEST_STATUS = process.env.BAD_REQUEST_STATUS;
 const SERVER_ERROR_STATUS = process.env.SERVER_ERROR_STATUS;
 
-const isOrderValid = async (req)=>{
-    const {userId,items,isItemsInCart} =req.body;
-    if(!userId||!items||items.length<0)
-    {
-        return false
-    }
-    const user = await userService.getUserByID(userId)
-    if(!user)
-    {
-        return false
-    }
-    return true
-};
+
 
 const placeOrder = async (req,res)=>{
     try{
-        if(!await isOrderValid(req)){
-            return res.status(BAD_REQUEST_STATUS).send({success:false,message:"Invalid request"})
+        const userId =req.user._id
+        if(!userId){
+            return res.status(BAD_REQUEST_STATUS).send({success:false,message:"Invalidssss request"})
         }
-        const {userId,items } =req.body;
+        const {items} =req.body;
         const invalidProductIds =await orderService.getInvalidItemsOfCart(items);
+
         if(invalidProductIds.length>0){
             return res.status(BAD_REQUEST_STATUS).send({success:false,message:"Products not exits",invalidProductIds})
         }
-        for (const item of items) {
+        for (let item of items) {
             const { success, data } = await cartService.deleteItemFromCart(userId, item.productId, item.quantity);
             if(!success){
+                console.log(data)
                 return res.status(SERVER_ERROR_STATUS).send({success:false,message:"Can not remove item from cart"})
             }
         }
         const order =await orderService.createOrder(userId,items)
+        console.log(order)
         res.status(SUCCESS_STATUS).send({success:true,message:"Order successful"})
     }
     catch{
@@ -58,8 +50,7 @@ const updateStatusOrder =async(req,res)=>
         return res.status(SUCCESS_STATUS).json(data)
     }
     catch{
-    return res.status(SERVER_ERROR_STATUS).send({success:false,message:"Server error"})
-
+        return res.status(SERVER_ERROR_STATUS).send({success:false,message:"Server error"})
     }
 
 };

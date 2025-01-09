@@ -7,17 +7,10 @@ const orderSchema = new mongoose.Schema({
     },
     items: [
         {
-            name:{
-                type:String,
-                required:true
-            },
-            price:{
-                type:Number,
-                required:true
-            },
-            image:{
-                type:String,
-                required:true
+            productId: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'Product',
+                required: true,
             },
             quantity: {
                 type: Number,
@@ -45,19 +38,19 @@ const orderSchema = new mongoose.Schema({
     address:{
         street:{
             type:String,
-            required:true
+            required:false
         },
         city:{
             type:String,
-            required:true
+            required:false
         },
         postalCode:{
             type:String,
-            required:true
+            required:false
         },
         phone:{
             type:String,
-            required:true
+            required:false
         },
         notes:{
             type:String,
