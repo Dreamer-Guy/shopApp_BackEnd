@@ -143,4 +143,51 @@ const getRelatedProducts=async(req,res)=>{
         });
     }
 }
-export { searchProducts,getRelatedProducts};
+
+const getLatestProducts = async (req, res) => {
+    try {
+        const limit = Number(req.query.limit) || 10;
+        const products = await productService.getLatestProducts(limit);
+        
+        if (!products) {
+            return res.status(SERVER_ERROR_STATUS).send({
+                message: "Unable to get latest products"
+            });
+        }
+
+        return res.send({
+            totalProducts: products.length,
+            products: products
+        });
+    } catch (error) {
+        console.error('Error in getLatestProducts:', error);
+        return res.status(SERVER_ERROR_STATUS).send({
+            message: "Server error"
+        });
+    }
+};
+
+const getTopOrderedProducts = async (req, res) => {
+    try {
+        const limit = Number(req.query.limit) || 10;
+        const products = await productService.getTopOrderedProducts(limit);
+
+        if (!products) {
+            return res.status(SERVER_ERROR_STATUS).send({
+                message: "Unable to get top ordered products"
+            });
+        }
+
+        return res.status(SUCCESS_STATUS).send({
+            totalProducts: products.length,
+            products: products
+        });
+    } catch (error) {
+        console.error('Error in getTopOrderedProducts:', error);
+        return res.status(SERVER_ERROR_STATUS).send({
+            message: "Server error"
+        });
+    }
+};
+
+export { searchProducts,getRelatedProducts,getLatestProducts,getTopOrderedProducts};
