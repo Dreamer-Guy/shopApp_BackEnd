@@ -1,5 +1,6 @@
 import {createToken} from "../../utils/createAndVerifyToken.js";
 import userServices from "../../services/userService.js";
+import cartServices from "../../services/cartService.js";
 import {hashPassword,comparePlainAndHashed} from "../../utils/hashAndCompare.js";
 
 const SUCCESS_STATUS = 200;
@@ -104,6 +105,16 @@ const registerUser = async (req, res) => {
         };
         const user = await userServices.createUser(userData);
         await userServices.saveUser(user);
+        
+        const { success, data } = await cartServices.createEmptyCart(user._id);
+        if (!success) {
+            return res.status(SERVER_ERROR_STATUS).send({
+                status: "error",
+                message: "Failed to create cart",
+            });
+        }
+
+        
         return res.status(SUCCESS_STATUS).send({
             status: "success",
             message: "register success",
