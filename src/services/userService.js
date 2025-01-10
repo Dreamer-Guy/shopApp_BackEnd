@@ -1,4 +1,4 @@
-
+import { hashPassword,comparePlainAndHashed } from "../utils/hashAndCompare.js";
 import User from "../models/User.js";
 
 
@@ -116,6 +116,20 @@ const userServices = {
         });
         return totalCustomers;
     },
+    async changePassword(userId,oldPassword,newPassword){
+        const user=await User.findById(userId);
+        if(!user){
+            return {success:false,message:"User not found"};
+        }
+        const isPasswordCorrect=await comparePlainAndHashed(oldPassword,user.password);
+        if(!isPasswordCorrect){
+            return {success:false,message:"Old password is incorrect"};
+        }
+        const hashedNewPassword=await hashPassword(newPassword);
+        user.password=hashedNewPassword;
+        await user.save();
+        return {success:true,message:user};
+    }
 };
 
 export default userServices;
