@@ -131,11 +131,13 @@ const deleteOrderById = async(req,res)=>{
 const getOrderByUserId  = async (req,res)=>{
     try{
         const userId=req.params.id
+        const page = req.query.page || 1;
+        const limit = req.query.limit || 5;
         if(!userId){
             return res.status(BAD_REQUEST_STATUS).send({success:false,message:"Invalid request"})
         }
-        const orders = await orderService.getOrderByUserId(userId)
-        return res.status(SUCCESS_STATUS).json({success:true,data:orders})
+        const data = await orderService.getOrderByUserId({userId,page,limit})
+        return res.status(SUCCESS_STATUS).json({success:true,...data})
     }
     catch{
         return res.status(SERVER_ERROR_STATUS).send({success:false,message:"Server error"})

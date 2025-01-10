@@ -107,9 +107,13 @@ const orderService={
         const updateOrder= await order.save()
         return ({success:true,data:updateOrder})
     },
-    async getOrderByUserId(userId){
+    async getOrderByUserId({userId,page,limit}){
+        const totalOrders=await Order.countDocuments({userId:userId});
         const orders = await Order.find({userId:userId})
-        return orders
+        .skip((page-1)*limit)
+        .limit(limit)
+        .lean();
+        return {orders,totalPages:Math.ceil(totalOrders/limit)}
     },
 
     async getOrders(){
