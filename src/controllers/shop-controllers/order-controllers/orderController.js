@@ -135,7 +135,7 @@ const getOrderByUserId  = async (req,res)=>{
             return res.status(BAD_REQUEST_STATUS).send({success:false,message:"Invalid request"})
         }
         const orders = await orderService.getOrderByUserId(userId)
-        return res.status(SUCCESS_STATUS).json({success:false,data:orders})
+        return res.status(SUCCESS_STATUS).json({success:true,data:orders})
     }
     catch{
         return res.status(SERVER_ERROR_STATUS).send({success:false,message:"Server error"})

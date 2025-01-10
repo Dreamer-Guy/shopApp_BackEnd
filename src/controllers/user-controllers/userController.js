@@ -38,4 +38,34 @@ const updateUserProfile=async(req,res)=>{
         });
     }
 }
-export {updateUserProfile};
+const changePassword=async(req,res)=>{
+    try{
+
+            const user=req.user;
+            if(!user||!user._id){
+                return res.status(BAD_REQUEST_STATUS).send({
+                    success:false,
+                    message: "Unauthorized",
+                });
+            }
+            const {oldPassword,newPassword}=req.body;
+            const {success,message}=await userServices.changePassword(user._id,oldPassword,newPassword);
+            if(!success){
+                return res.status(BAD_REQUEST_STATUS).send({
+                    success:false,
+                    message:message,
+                });
+            }
+            return res.status(SUCCESS_STATUS).send({
+                success:true,
+                message:message,
+            });
+    }
+    catch(e){
+        return res.status(SERVER_ERROR_STATUS).send({
+            success:false,
+            message: "Server error",
+        });
+    }
+}
+export {updateUserProfile,changePassword};
