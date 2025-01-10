@@ -76,19 +76,19 @@ const deleteAddress = async(req, res) => {
 
 const updateAddress = async(req, res) => {
     try {
-        const addressId = req.params.id;
-        const updateData = req.body;
-
-        const updatedAddress = await addressService.updateAddress(addressId, updateData);
-
-        if (!updatedAddress) {
+        const user =req.user;
+        const userId = user._id;
+        if(!userId||!user){
             return res.status(BAD_REQUEST_STATUS).send({
-                message: "Address not found",
+                message: "User not found",
             });
         }
-
+        
+        const updateData = req.body;
+        const updatedAddress = await addressService.updateAddress(userId, updateData);
         return res.status(SUCCESS_STATUS).send({
             message: "Address updated successfully",
+            address:updatedAddress
         });
     } 
     catch (e) {
@@ -122,4 +122,23 @@ const setDefaultAddress = async(req, res) => {
         });
     }
 };
-export { getAllAddresses, createAddress, deleteAddress, updateAddress, setDefaultAddress};
+const getAddressByUserId = async(req, res) => {
+    try{
+        const userId = req.params.id;
+        const address = await addressService.getAddressByUserId(userId);
+        if(!address){
+            return res.status(BAD_REQUEST_STATUS).send({
+                message: "Address not found",
+            });
+        }
+        return res.status(SUCCESS_STATUS).send({
+            address
+        });
+    }
+    catch(e){
+        return res.status(SERVER_ERROR_STATUS).send({
+            message: "Server error",
+        });
+    }
+}
+export { getAllAddresses, createAddress, deleteAddress, updateAddress, setDefaultAddress,getAddressByUserId};
