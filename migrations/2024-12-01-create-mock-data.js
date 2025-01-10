@@ -1561,7 +1561,6 @@ const mockUsers=[
         role: "user",
         status: "active",
         createdAt: "2024-11-22T06:41:57.622+00:00",
-        __v: 0,
     },
     {
         fullName: "Nguyen quoc vinh",
@@ -1572,7 +1571,6 @@ const mockUsers=[
         role: "user",
         status: "active",
         createdAt: "2024-11-24T14:22:21.243+00:00",
-        __v: 0,
     },
     {
         fullName: "abc",
@@ -1583,7 +1581,6 @@ const mockUsers=[
         role: "user",
         status: "active",
         createdAt: "2024-11-24T17:29:19.582+00:00",
-        __v: 0,
     },
     {
         fullName: "Nguyen quoc vinh",
@@ -1594,7 +1591,6 @@ const mockUsers=[
         role: "user",
         status: "active",
         createdAt: "2024-11-29T01:03:40.420+00:00",
-        __v: 0,
     },
     {
         fullName: "Trần Minh Sơn",
@@ -1605,7 +1601,6 @@ const mockUsers=[
         role: "user",
         status: "active",
         createdAt: "2024-11-29T01:24:07.848+00:00",
-        __v: 0,
     },
     {
         fullName: "son",
@@ -1616,7 +1611,6 @@ const mockUsers=[
         role: "user",
         status: "active",
         createdAt: "2024-11-29T01:24:48.677+00:00",
-        __v: 0,
     },
     {
         fullName: "duc toan",
@@ -1627,7 +1621,6 @@ const mockUsers=[
         role: "user",
         status: "active",
         createdAt: "2024-11-30T06:39:41.012+00:00",
-        __v: 0,
     },
     {
         fullName: "Duc Toan Nguyen",
@@ -1638,7 +1631,6 @@ const mockUsers=[
         role: "user",
         status: "active",
         createdAt: "2024-11-30T06:40:23.805+00:00",
-        __v: 0,
     },
     {
         fullName: "Alice Johnson",
@@ -1649,7 +1641,6 @@ const mockUsers=[
         role: "user",
         status: "active",
         createdAt: "2024-11-28T08:30:00.000+00:00",
-        __v: 0,
     },
     {
         fullName: "Bob Smith",
@@ -1660,7 +1651,6 @@ const mockUsers=[
         role: "user",
         status: "active",
         createdAt: "2024-12-01T10:15:00.000+00:00",
-        __v: 0,
     },
     {
         fullName: "Charlie Nguyen",
@@ -1671,7 +1661,6 @@ const mockUsers=[
         role: "user",
         status: "ban",
         createdAt: "2024-11-29T12:45:00.000+00:00",
-        __v: 0,
     },
     {
         fullName: "Diana Carter",
@@ -1682,7 +1671,6 @@ const mockUsers=[
         role: "user",
         status: "ban",
         createdAt: "2024-12-02T05:00:00.000+00:00",
-        __v: 0,
     },
     {
         fullName: "Evan Lee",
@@ -1693,7 +1681,6 @@ const mockUsers=[
         role: "user",
         status: "ban",
         createdAt: "2024-12-03T16:30:00.000+00:00",
-        __v: 0,
     },
     {
         fullName: "Nguyen Van A",
@@ -1704,7 +1691,6 @@ const mockUsers=[
         role: "user",
         status: "ban",
         createdAt: "2024-12-08T07:00:00.000Z",
-        __v: 0
     },
     {
         fullName: "Tran Thi B",
@@ -1715,7 +1701,6 @@ const mockUsers=[
         role: "user",
         status: "ban",
         createdAt: "2024-12-08T07:01:00.000Z",
-        __v: 0
     },
     {
         fullName: "Le Van C",
@@ -1726,7 +1711,6 @@ const mockUsers=[
         role: "user",
         status: "ban",
         createdAt: "2024-12-08T07:02:00.000Z",
-        __v: 0
     },
     {
         fullName: "Pham Thi D",
@@ -1737,7 +1721,6 @@ const mockUsers=[
         role: "user",
         status: "ban",
         createdAt: "2024-12-08T07:03:00.000Z",
-        __v: 0
     },
     {
         fullName: "Hoang Van E",
@@ -1748,7 +1731,6 @@ const mockUsers=[
         role: "user",
         status: "ban",
         createdAt: "2024-12-08T07:04:00.000Z",
-        __v: 0
     },
     {
         fullName: "Do Thi F",
@@ -1759,7 +1741,6 @@ const mockUsers=[
         role: "user",
         status: "ban",
         createdAt: "2024-12-08T07:05:00.000Z",
-        __v: 0
     },
     {
         fullName: "Vo Van G",
@@ -1770,7 +1751,6 @@ const mockUsers=[
         role: "user",
         status: "ban",
         createdAt: "2024-12-08T07:06:00.000Z",
-        __v: 0
     }
 ]
   
@@ -1807,71 +1787,71 @@ const mockReviews=[
         createdAt: new Date("2024-11-13T12:37:56.789Z"),
     },
     {
-        productId: "None", // Chuyển sang ObjectId
-        userId: "None", // Chuyển sang ObjectId
+        productId: "None",
+        userId: "None",
         rating: 5,
         comment: 'Excellent product, will buy again!',
         createdAt: new Date('2024-01-01T10:00:00'),
     },
     {
-        productId: "None", // Chuyển sang ObjectId
-        userId: "None", // Chuyển sang ObjectId
+        productId: "None",
+        userId: "None",
         rating: 3,
         comment: 'Average quality, not worth the price.',
         createdAt: new Date('2024-01-02T11:30:00'),
     },
     {
-        productId: "None", // Chuyển sang ObjectId
-        userId: "None", // Chuyển sang ObjectId
+        productId: "None",
+        userId: "None",
         rating: 4,
         comment: 'Good, but could be better.',
         createdAt: new Date('2024-01-03T12:45:00'),
     },
     {
-        productId: "None", // Chuyển sang ObjectId
-        userId: "None", // Chuyển sang ObjectId
+        productId: "None",
+        userId: "None",
         rating: 5,
         comment: 'Absolutely love it!',
         createdAt: new Date('2024-01-04T09:00:00'),
     },
     {
-        productId: "None", // Chuyển sang ObjectId
-        userId: "None", // Chuyển sang ObjectId
+        productId: "None",
+        userId: "None",
         rating: 2,
         comment: 'Not satisfied, expected better.',
         createdAt: new Date('2024-01-05T08:00:00'),
     },
     {
-        productId: "None", // Chuyển sang ObjectId
-        userId: "None", // Chuyển sang ObjectId
+        productId: "None",
+        userId: "None",
         rating: 1,
         comment: 'Terrible quality, do not recommend.',
         createdAt: new Date('2024-01-06T07:15:00'),
     },
     {
-        productId: "None", // Chuyển sang ObjectId
-        userId: "None", // Chuyển sang ObjectId
+        productId: "None",
+        userId: "None",
         rating: 4,
         comment: 'Very good, fast delivery.',
         createdAt: new Date('2024-01-07T15:45:00'),
     },
     {
-        productId: "None", // Chuyển sang ObjectId
-        userId: "None", // Chuyển sang ObjectId
+        productId: "None",
+        userId: "None",
         rating: 3,
         comment: 'Okay, but not worth the price.',
         createdAt: new Date('2024-01-08T18:00:00'),
     },
     {
-        productId: "None", // Chuyển sang ObjectId
-        userId: "None", // Chuyển sang ObjectId
+        productId: "None",
+        userId: "None",
         rating: 5,
         comment: 'Amazing! Highly recommend!',
         createdAt: new Date('2024-01-09T10:30:00'),
     },
     {
-        productId: "None", // Chuyển sang ObjectId
-        userId: "None", // Chuyển sang ObjectId
+        productId: "None",
+        userId: "None",
         rating: 4,
         comment: 'Good value for money.',
         createdAt: new Date('2024-01-10T16:00:00'),
@@ -2211,6 +2191,275 @@ const mockCarts=[
     },
 ];
 
+const mockOrders = [
+    // Order 1
+    {
+        userId: "None",
+        items: [
+            {
+                name: "Laptop Dell Inspiron 15 3520 i5 1235U/16GB/512GB/120Hz/OfficeHS/KYHD/Win11",
+                image: "https://cdn.tgdd.vn/Products/Images/44/321192/Slider/vi-vn-dell-inspiron-15-3520-i5-25p231-slider-1.jpg",
+                price: 699,
+                quantity: 2,
+            },
+            {
+                name: "iPhone 11 128GB",
+                image: "https://cdn.tgdd.vn/Products/Images/42/210644/Slider/iphone-11-128gb638176672333284623.jpeg",
+                price: 1999,
+                quantity: 1,
+            },
+            {
+                name: "Smart Tivi Samsung UHD 4K 65 inch UA65AU7700",
+                image: "https://cdn2.fptshop.com.vn/unsafe/384x0/filters:quality(100)/2023_8_14_638276187497562577_smart-tivi-samsung-uhd-4k-au7700-3.jpg",
+                price: 1999,
+                quantity: 1,
+            },
+        ],
+        address: {
+            fullName: "Banh Thi Vinh",
+            street: "",
+            city: "",
+            postalCode: "",
+            phone: ""
+        },
+        total: 100784,
+        orderStatus: "pending",
+        checkoutStatus: "unpaid",
+        createdAt: "2024-12-03T14:56:08.477+00:00",
+    },
+    // Order 2
+    {
+        userId: "None",
+        items: [
+            {
+                name: "BeFit Watch Ultra 52.6mm",
+                image: "https://cdn.tgdd.vn/Products/Images/7077/315596/Slider/vi-vn-befit-watch-ultra-day-silicone-fix-1.jpg",
+                price: 627.95,
+                quantity: 1,
+            },
+            {
+                name: "Xiaomi Google Tivi 4K A 55 inch 2025 (L55MA-ASEA)",
+                image: "https://cdn2.fptshop.com.vn/unsafe/384x0/filters:quality(100)/00910009_tivi_xiaomi_a_55_2025_l55ma_asea_0b7682dc52.png",
+                price: 1999,
+                quantity: 1,
+            },
+        ],
+        address: {
+            fullName: "Nguyen Van A",
+            street: "456 Ly Thuong Kiet",
+            city: "Da Nang",
+            postalCode: "550000",
+            phone: "0987654321"
+        },
+        total: 1199,
+        orderStatus: "pending",
+        checkoutStatus: "unpaid",
+        createdAt: "2024-12-04T10:30:00.000+00:00",
+    },
+    // Order 3
+    {
+        userId: "None",
+        items: [
+            {
+                name: "Xiaomi Google Tivi A Pro 55 Inch 4K",
+                image: "https://cdn2.fptshop.com.vn/unsafe/384x0/filters:quality(100)/2023_8_9_638271937140598065_tivi-xiaomi-a-pro-55-inch-4.jpg",
+                price: 1999,
+                quantity: 1,
+            },
+            {
+                name: "Apple Watch Series 9 GPS 45mm",
+                image: "https://cdn.tgdd.vn/Products/Images/7077/314708/Slider/apple-watch-s9-45mm-vien-nhom-day-silicone638351569262602904.jpg",
+                price: 1999,
+                quantity: 1,
+            },
+        ],
+        address: {
+            fullName: "Tran Thi B",
+            street: "789 Tran Hung Dao",
+            city: "Ha Noi",
+            postalCode: "100000",
+            phone: "0931122334"
+        },
+        total: 1399,
+        orderStatus: "processing",
+        checkoutStatus: "unpaid",
+        createdAt: "2024-12-05T12:45:00.000+00:00",
+    },
+    // Order 4
+    {
+        userId: "None",
+        items: [
+            {
+                name: "Laptop HP Gaming VICTUS 15 fa1139TX i5 12450H/16GB/512GB/4GB RTX2050/144Hz/Win11 (8Y6W3PA)",
+                image: "https://cdn.tgdd.vn/Products/Images/44/318163/Slider/vi-vn-hp-victus-15-fa1139tx-i5-8y6w3pa-slider-1.jpg",
+                price: 1999,
+                quantity: 1,
+            },
+        ],
+        address: {
+            fullName: "Le Van C",
+            street: "321 Nguyen Trai",
+            city: "Can Tho",
+            postalCode: "900000",
+            phone: "0911223344"
+        },
+        total: 399,
+        orderStatus: "processing",
+        checkoutStatus: "paid",
+        createdAt: "2024-12-06T09:00:00.000+00:00",
+    },
+    // Order 5
+    {
+        userId: "None",
+        items: [
+            {
+                name: "Realme 13+ 5G 8GB/256GB",
+                image: "https://cdn.tgdd.vn/Products/Images/42/330620/Slider/realme-13-plus-5g-8gb-256gb638677081877884882.jpg",
+                price: 299,
+                quantity: 1,
+            },
+        ],
+        address: {
+            fullName: "Nguyen Thi D",
+            street: "678 Cach Mang Thang 8",
+            city: "Nha Trang",
+            postalCode: "650000",
+            phone: "0901234567"
+        },
+        total: 999,
+        orderStatus: "completed",
+        checkoutStatus: "unpaid",
+        createdAt: "2024-12-07T15:20:00.000+00:00",
+    },
+    // Order 6
+    {
+        userId: "None",
+        items: [
+            {
+                name: "Realme 13+ 5G 8GB/256GB",
+                image: "https://cdn.tgdd.vn/Products/Images/42/330620/Slider/realme-13-plus-5g-8gb-256gb638677081877884882.jpg",
+                price: 299,
+                quantity: 1,
+            },
+        ],
+        address: {
+            fullName: "Le Thanh Vinh",
+            street: "Quoc Lo 26",
+            city: "Ho Chi Minh City",
+            postalCode: "700000",
+            phone: "090xxxx567"
+        },
+        total: 999,
+        orderStatus: "completed",
+        checkoutStatus: "paid",
+        createdAt: "2024-12-07T15:20:00.000+00:00",
+    },
+    // Order 7
+    {
+        userId: "None",
+        items: [
+            {
+                name: "Vivo V40 5G 12GB/256GB",
+                image: "https://cdnv2.tgdd.vn/mwg-static/tgdd/Products/Images/42/331985/vivo-v40-5g-cam-hong-1-638682157901110213-750x500.jpg",
+                price: 492,
+                quantity: 1,
+            },
+            {
+                name: "Xiaomi 14T 5G 12GB/512GB Xanh",
+                image: "https://cdn.tgdd.vn/Products/Images/42/329892/Slider/xiaomi-14t-5g-12gb-512gb-xanh638665075497966263.jpg",
+                price: 499,
+                quantity: 1,
+            },
+        ],
+        address: {
+            fullName: "Nguyen Van Sang",
+            street: "123 Le Loi",
+            city: "Ho Chi Minh City",
+            postalCode: "700000",
+            phone: "0909001234"
+        },
+        total: 1797,
+        orderStatus: "pending",
+        checkoutStatus: "unpaid",
+        createdAt: "2024-12-04T10:20:30.477+00:00"
+    },
+    // Order 8
+    {
+        userId: "674efe63fa5b9cb7f4020944",
+        items: [
+            {
+                name: "Apple Watch Ultra 2 GPS + Cellular 49mm viền Titanium đen dây Alpine",
+                image: "https://cdn.tgdd.vn/Products/Images/7077/329719/Slider/vi-vn-apple-watch-ultra-2-gps-cellular-49mm-vien-titanium-day-alpine-sld-f-1.jpg",
+                price: 499,
+                quantity: 1,
+            },
+        ],
+        address: {
+            fullName: "Le Thi D",
+            street: "12 Hai Ba Trung",
+            city: "Can Tho",
+            postalCode: "900000",
+            phone: "0933001234"
+        },
+        total: 499,
+        orderStatus: "processing",
+        checkoutStatus: "paid",
+        createdAt: "2024-12-07T15:50:00.000+00:00"
+    },
+    // Order 9
+    {
+        userId: "674efe63fa5b9cb7f4020943",
+        items: [
+            {
+                name: "GoPro Hero 13 Black",
+                image: "https://cdn2.cellphones.com.vn/insecure/rs:fill:0:358/q:90/plain/https://cellphones.com.vn/media/catalog/product/t/e/text_ng_n_3__5_87.png",
+                price: 599,
+                quantity: 1,
+            },
+            {
+                name: "Camera GoPro Hero 12",
+                image: "https://cdn2.cellphones.com.vn/insecure/rs:fill:0:358/q:90/plain/https://cellphones.com.vn/media/catalog/product/c/a/camera-hanh-trinh-gopro-hero-12-phu-kien.png",
+                price: 599,
+                quantity: 1,
+            },
+        ],
+        address: {
+            fullName: "Hoang Van C",
+            street: "789 Nguyen Trai",
+            city: "Da Nang",
+            postalCode: "550000",
+            phone: "0928007890"
+        },
+        total: 1898,
+        orderStatus: "completed",
+        checkoutStatus: "unpaid",
+        createdAt: "2024-12-06T08:30:45.000+00:00"
+    },
+    // Order 10
+    {
+        userId: "None",
+        items: [
+            {
+                name: "iPhone 11 128GB",
+                image: "https://cdn.tgdd.vn/Products/Images/42/210644/Slider/iphone-11-128gb638176672333284623.jpeg",
+                price: 699,
+                quantity: 10,
+            },
+        ],
+        address: {
+            fullName: "Le Thanh T",
+            street: "Mac Dinh Chi Street, Tan Hoa Quarter, Dong Hoa Ward",
+            city: "Di An City, Binh Duong Province",
+            postalCode: "820000",
+            phone: "094xxxxx32"
+        },
+        total: 1898,
+        orderStatus: "completed",
+        checkoutStatus: "paid",
+        createdAt: "2024-12-06T08:30:45.000+00:00"
+    },
+]
+
 
 export const up = async (db, client) => {
     const categories=await db.collection("categories").insertMany(mockCategories);
@@ -2349,15 +2598,8 @@ export const up = async (db, client) => {
         };
     });
 
-    // const updatedReviews=mockReviews.map((review, index)=>{
-    //     return {
-    //         ...review,
-    //         user: userIdMap[0],
-    //         productId: productIdMap[index],  
-    //     }
-    // });
-
     await db.collection("reviews").insertMany(updatedReviews);
+
 
     const updatedCarts = mockCarts.map((cart, cartIndex) => {
         return {
@@ -2368,15 +2610,37 @@ export const up = async (db, client) => {
                 const randomProductIndex = (cartIndex * 3 + itemIndex) % 25;
                 return {
                     ...item,
-                    productId: productIdMap[randomProductIndex], // Gán productId từ danh sách
+                    productId: productIdMap[randomProductIndex],
                 };
             }),
         };
     });
     
-
-    
     await db.collection("carts").insertMany(updatedCarts);
+    
+    const updatedOrders = mockOrders.map((order, orderIndex) => {
+        return {
+            ...order,
+            userId: userIdMap[orderIndex],
+            address: {
+                ...order.address,
+                fullName: mockUsers[orderIndex].fullName,
+            },
+        };
+    });
+
+    await db.collection("orders").insertMany(updatedOrders);
+
+    for (const order of updatedOrders) {
+        // Tính tổng tiền từ items
+        const newTotal = order.items.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+
+        // Cập nhật giá trị total trong đơn hàng
+        await db.collection("orders").updateOne(
+            { _id: order._id },
+            { $set: { total: newTotal } }
+        );
+    }
 };
 
 export const down = async (db, client) => {
@@ -2404,4 +2668,5 @@ export const down = async (db, client) => {
     await db.collection("brands").drop();
     await db.collection("categories").drop();
     await db.collection("carts").drop();
+    await db.collection("orders").drop();
 };
