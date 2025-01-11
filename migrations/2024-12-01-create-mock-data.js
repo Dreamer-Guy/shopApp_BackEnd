@@ -1549,213 +1549,6 @@ const mockProductPropertyValues = [
 ];
 
 
-// Mock User
-const mockUsers=[
-    // Customer
-    {
-        fullName: "vinh nguyen",
-        userName: "vinh nguyenGoogle",
-        email: "vinh01515@gmail.com",
-        password: "$2a$10$B3brr0sjJnx4PYIbZo1ASu0U23nHkNkweRlO8LLRFWFJGjMMZHyFi",
-        avatar: "https://lh3.googleusercontent.com/a/ACg8ocLM8bNJw0NiUYgSnFdZ-jIUnxDKfQ…",
-        role: "user",
-        status: "active",
-        createdAt: "2024-11-22T06:41:57.622+00:00",
-    },
-    {
-        fullName: "Nguyen quoc vinh",
-        userName: "vinh",
-        email: "vinh@gmail.com",
-        password: "$2a$10$Z1NR6Vc31tUkDMTjN94ZN.2rIUNyaOeQka234Z9yjCzheiNTXsdfa",
-        avatar: "",
-        role: "user",
-        status: "active",
-        createdAt: "2024-11-24T14:22:21.243+00:00",
-    },
-    {
-        fullName: "abc",
-        userName: "abc",
-        email: "abc@gmail.com",
-        password: "$2a$10$junYf4JC1h3ZfD6ntRSehez6tI.2AJGFdhCODw3l7fj48dFDoRgKy",
-        avatar: "",
-        role: "user",
-        status: "active",
-        createdAt: "2024-11-24T17:29:19.582+00:00",
-    },
-    {
-        fullName: "Nguyen quoc vinh",
-        userName: "vinh123",
-        email: "vinh123@gmail.com",
-        password: "$2a$10$uXLNcbwIZp/zuZ1VrK36W.2TeS6iG/eN18ZPGVtAR60d80s/mJAgS",
-        avatar: "",
-        role: "user",
-        status: "active",
-        createdAt: "2024-11-29T01:03:40.420+00:00",
-    },
-    {
-        fullName: "Trần Minh Sơn",
-        userName: "Trần Minh SơnGoogle",
-        email: "sonhotboy82@gmail.com",
-        password: "$2a$10$EEJvQPOx4qCwN1yatGiTLuTZTMuNSRbby0qGtMjymXCkG5phbNeWy",
-        avatar: "https://lh3.googleusercontent.com/a/ACg8ocL3JsRS8yKzjLtPRfd_ErpXKFZOax…",
-        role: "user",
-        status: "active",
-        createdAt: "2024-11-29T01:24:07.848+00:00",
-    },
-    {
-        fullName: "son",
-        userName: "son",
-        email: "sontranminh82@gmail.com",
-        password: "$2a$10$rYlMSJtHCQAaqvsRvWq52OzfYRfphoYVwLANz0LsvVr6VFZTJl6a2",
-        avatar: "",
-        role: "user",
-        status: "active",
-        createdAt: "2024-11-29T01:24:48.677+00:00",
-    },
-    {
-        fullName: "duc toan",
-        userName: "dt1",
-        email: "a@gmail.com",
-        password: "$2a$10$afdTmSfFyvm.DGcFLor8uOpnQ.cQXq971xvVnohLAoeu5hmehjq6u",
-        avatar: "",
-        role: "user",
-        status: "active",
-        createdAt: "2024-11-30T06:39:41.012+00:00",
-    },
-    {
-        fullName: "Duc Toan Nguyen",
-        userName: "Duc Toan NguyenGoogle",
-        email: "ductoan137303@gmail.com",
-        password: "$2a$10$BzYFuMl0Cjucn/e80U2uReoCGL1yTfI9bAJy0tZTehTBnXrNTn/yW",
-        avatar: "https://lh3.googleusercontent.com/a/ACg8ocJuMbPymBYpD88AuzQ20OWZ4k4CpM…",
-        role: "user",
-        status: "active",
-        createdAt: "2024-11-30T06:40:23.805+00:00",
-    },
-    {
-        fullName: "Alice Johnson",
-        userName: "AliceJ123",
-        email: "alice.johnson@gmail.com",
-        password: "$2b$10$wa5dNYwTH.2rR1Wi3CvpO.CUep.srTKWzLjQj/KIhmnrThgQ/7RX.", // bcrypt hashed password
-        avatar: "https://example.com/avatar/alice.jpg",
-        role: "user",
-        status: "active",
-        createdAt: "2024-11-28T08:30:00.000+00:00",
-    },
-    {
-        fullName: "Bob Smith",
-        userName: "BobTheCoder",
-        email: "bob.smith@gmail.com",
-        password: "$2b$10$Mjj/8a41S6IvZfRYuBnvPeshLH6GX781Qzacu8eDWenOPhPwXeKMq", // bcrypt hashed password
-        avatar: "https://example.com/avatar/bob.jpg",
-        role: "user",
-        status: "active",
-        createdAt: "2024-12-01T10:15:00.000+00:00",
-    },
-    {
-        fullName: "Charlie Nguyen",
-        userName: "CharlieN22",
-        email: "charlie.nguyen@gmail.com",
-        password: "$2b$10$K2Dit9SbBJSjBuFC8i7D9eaTGA3RbFvQSs1UZvkz05.JCsDMI4Bfa", // bcrypt hashed password
-        avatar: "https://example.com/avatar/charlie.jpg",
-        role: "user",
-        status: "ban",
-        createdAt: "2024-11-29T12:45:00.000+00:00",
-    },
-    {
-        fullName: "Diana Carter",
-        userName: "DianaC_99",
-        email: "diana.carter@gmail.com",
-        password: "$2b$10$sOMK/PXw4wQI3sNriHyvK.aaFmBzelwxCAzcIfyPzb/Bd9wkFQojG", // bcrypt hashed password
-        avatar: "https://example.com/avatar/diana.jpg",
-        role: "user",
-        status: "ban",
-        createdAt: "2024-12-02T05:00:00.000+00:00",
-    },
-    {
-        fullName: "Evan Lee",
-        userName: "EvanLPro",
-        email: "evan.lee@gmail.com",
-        password: "$2b$10$BA7Rn84wISdsUxy.Jb5hhuyn9aTXKAeZNeSoguGui47Sa5Udrs0w.", // bcrypt hashed password
-        avatar: "https://example.com/avatar/evan.jpg",
-        role: "user",
-        status: "ban",
-        createdAt: "2024-12-03T16:30:00.000+00:00",
-    },
-    {
-        fullName: "Nguyen Van A",
-        userName: "nguyenvana",
-        email: "nguyenvana@gmail.com",
-        password: "$2b$10$rEfBJWhl0H1z./3/rl268ekqxR0sfcusuQA4YmVWRO8jveLa0ZPxu", 
-        avatar: "https://example.com/avatar1.jpg",
-        role: "user",
-        status: "ban",
-        createdAt: "2024-12-08T07:00:00.000Z",
-    },
-    {
-        fullName: "Tran Thi B",
-        userName: "tranthib",
-        email: "tranthib@gmail.com",
-        password: "$2b$10$2c2DMHjpUSeXghJNTvGCNuqbz22OLSX/54v7NdwLXzrOq1QwVUjhO", 
-        avatar: "https://example.com/avatar2.jpg",
-        role: "user",
-        status: "ban",
-        createdAt: "2024-12-08T07:01:00.000Z",
-    },
-    {
-        fullName: "Le Van C",
-        userName: "levanc",
-        email: "levanc@gmail.com",
-        password: "$2b$10$A64C0yoHRqE38GN1Gw289uPJUKSHPbISk79Yq37ObtZto.AFYZOvq", 
-        avatar: "https://example.com/avatar3.jpg",
-        role: "user",
-        status: "ban",
-        createdAt: "2024-12-08T07:02:00.000Z",
-    },
-    {
-        fullName: "Pham Thi D",
-        userName: "phamthid",
-        email: "phamthid@gmail.com",
-        password: "$2b$10$s9itgfkGDsXQnsy25SlpV.PiT9sDLcEs2aFmrkLBOFld3lnFdwQ5y", 
-        avatar: "https://example.com/avatar4.jpg",
-        role: "user",
-        status: "ban",
-        createdAt: "2024-12-08T07:03:00.000Z",
-    },
-    {
-        fullName: "Hoang Van E",
-        userName: "hoangvane",
-        email: "hoangvane@gmail.com",
-        password: "$2b$10$JXQVETbfW.F0a67e8FoPUe66kZfuV/sAK0Yf4ySx9L8yrWtZITzfm", 
-        avatar: "https://example.com/avatar5.jpg",
-        role: "user",
-        status: "ban",
-        createdAt: "2024-12-08T07:04:00.000Z",
-    },
-    {
-        fullName: "Do Thi F",
-        userName: "dothif",
-        email: "dothif@gmail.com",
-        password: "$2b$10$I8LGHw4G5eGW8/QTxhyHvutFbU8/dgK21/x30ohGiMViStjbOvmjG", 
-        avatar: "https://example.com/avatar6.jpg",
-        role: "user",
-        status: "ban",
-        createdAt: "2024-12-08T07:05:00.000Z",
-    },
-    {
-        fullName: "Vo Van G",
-        userName: "vovang",
-        email: "vovang@gmail.com",
-        password: "$2b$10$.rgnBqXqAjrvurvXpBIlXuRTrocZL3TODzbjkO2Z7I1MkcyiTtGNC", 
-        avatar: "https://example.com/avatar7.jpg",
-        role: "user",
-        status: "ban",
-        createdAt: "2024-12-08T07:06:00.000Z",
-    }
-]
-  
-
-
 // Mock Review
 const mockReviews=[
     {
@@ -2461,6 +2254,368 @@ const mockOrders = [
 ]
 
 
+// Mock User
+const mockUsers=[
+    // Customer
+    {
+        fullName: "vinh nguyen",
+        userName: "vinh nguyenGoogle",
+        email: "vinh01515@gmail.com",
+        password: "$2a$10$B3brr0sjJnx4PYIbZo1ASu0U23nHkNkweRlO8LLRFWFJGjMMZHyFi",
+        avatar: "https://lh3.googleusercontent.com/a/ACg8ocLM8bNJw0NiUYgSnFdZ-jIUnxDKfQ…",
+        role: "user",
+        status: "active",
+        createdAt: "2024-11-22T06:41:57.622+00:00",
+    },
+    {
+        fullName: "Nguyen quoc vinh",
+        userName: "vinh",
+        email: "vinh@gmail.com",
+        password: "$2a$10$Z1NR6Vc31tUkDMTjN94ZN.2rIUNyaOeQka234Z9yjCzheiNTXsdfa",
+        avatar: "",
+        role: "user",
+        status: "active",
+        createdAt: "2024-11-24T14:22:21.243+00:00",
+    },
+    {
+        fullName: "abc",
+        userName: "abc",
+        email: "abc@gmail.com",
+        password: "$2a$10$junYf4JC1h3ZfD6ntRSehez6tI.2AJGFdhCODw3l7fj48dFDoRgKy",
+        avatar: "",
+        role: "user",
+        status: "active",
+        createdAt: "2024-11-24T17:29:19.582+00:00",
+    },
+    {
+        fullName: "Nguyen quoc vinh",
+        userName: "vinh123",
+        email: "vinh123@gmail.com",
+        password: "$2a$10$uXLNcbwIZp/zuZ1VrK36W.2TeS6iG/eN18ZPGVtAR60d80s/mJAgS",
+        avatar: "",
+        role: "user",
+        status: "active",
+        createdAt: "2024-11-29T01:03:40.420+00:00",
+    },
+    {
+        fullName: "Trần Minh Sơn",
+        userName: "Trần Minh SơnGoogle",
+        email: "sonhotboy82@gmail.com",
+        password: "$2a$10$EEJvQPOx4qCwN1yatGiTLuTZTMuNSRbby0qGtMjymXCkG5phbNeWy",
+        avatar: "https://lh3.googleusercontent.com/a/ACg8ocL3JsRS8yKzjLtPRfd_ErpXKFZOax…",
+        role: "user",
+        status: "active",
+        createdAt: "2024-11-29T01:24:07.848+00:00",
+    },
+    {
+        fullName: "son",
+        userName: "son",
+        email: "sontranminh82@gmail.com",
+        password: "$2a$10$rYlMSJtHCQAaqvsRvWq52OzfYRfphoYVwLANz0LsvVr6VFZTJl6a2",
+        avatar: "",
+        role: "user",
+        status: "active",
+        createdAt: "2024-11-29T01:24:48.677+00:00",
+    },
+    {
+        fullName: "duc toan",
+        userName: "dt1",
+        email: "a@gmail.com",
+        password: "$2a$10$afdTmSfFyvm.DGcFLor8uOpnQ.cQXq971xvVnohLAoeu5hmehjq6u",
+        avatar: "",
+        role: "user",
+        status: "active",
+        createdAt: "2024-11-30T06:39:41.012+00:00",
+    },
+    {
+        fullName: "Duc Toan Nguyen",
+        userName: "Duc Toan NguyenGoogle",
+        email: "ductoan137303@gmail.com",
+        password: "$2a$10$BzYFuMl0Cjucn/e80U2uReoCGL1yTfI9bAJy0tZTehTBnXrNTn/yW",
+        avatar: "https://lh3.googleusercontent.com/a/ACg8ocJuMbPymBYpD88AuzQ20OWZ4k4CpM…",
+        role: "user",
+        status: "active",
+        createdAt: "2024-11-30T06:40:23.805+00:00",
+    },
+    {
+        fullName: "Alice Johnson",
+        userName: "AliceJ123",
+        email: "alice.johnson@gmail.com",
+        password: "$2b$10$wa5dNYwTH.2rR1Wi3CvpO.CUep.srTKWzLjQj/KIhmnrThgQ/7RX.", // bcrypt hashed password
+        avatar: "https://example.com/avatar/alice.jpg",
+        role: "user",
+        status: "active",
+        createdAt: "2024-11-28T08:30:00.000+00:00",
+    },
+    {
+        fullName: "Bob Smith",
+        userName: "BobTheCoder",
+        email: "bob.smith@gmail.com",
+        password: "$2b$10$Mjj/8a41S6IvZfRYuBnvPeshLH6GX781Qzacu8eDWenOPhPwXeKMq", // bcrypt hashed password
+        avatar: "https://example.com/avatar/bob.jpg",
+        role: "user",
+        status: "active",
+        createdAt: "2024-12-01T10:15:00.000+00:00",
+    },
+    {
+        fullName: "Charlie Nguyen",
+        userName: "CharlieN22",
+        email: "charlie.nguyen@gmail.com",
+        password: "$2b$10$K2Dit9SbBJSjBuFC8i7D9eaTGA3RbFvQSs1UZvkz05.JCsDMI4Bfa", // bcrypt hashed password
+        avatar: "https://example.com/avatar/charlie.jpg",
+        role: "user",
+        status: "ban",
+        createdAt: "2024-11-29T12:45:00.000+00:00",
+    },
+    {
+        fullName: "Diana Carter",
+        userName: "DianaC_99",
+        email: "diana.carter@gmail.com",
+        password: "$2b$10$sOMK/PXw4wQI3sNriHyvK.aaFmBzelwxCAzcIfyPzb/Bd9wkFQojG", // bcrypt hashed password
+        avatar: "https://example.com/avatar/diana.jpg",
+        role: "user",
+        status: "ban",
+        createdAt: "2024-12-02T05:00:00.000+00:00",
+    },
+    {
+        fullName: "Evan Lee",
+        userName: "EvanLPro",
+        email: "evan.lee@gmail.com",
+        password: "$2b$10$BA7Rn84wISdsUxy.Jb5hhuyn9aTXKAeZNeSoguGui47Sa5Udrs0w.", // bcrypt hashed password
+        avatar: "https://example.com/avatar/evan.jpg",
+        role: "user",
+        status: "ban",
+        createdAt: "2024-12-03T16:30:00.000+00:00",
+    },
+    {
+        fullName: "Nguyen Van A",
+        userName: "nguyenvana",
+        email: "nguyenvana@gmail.com",
+        password: "$2b$10$rEfBJWhl0H1z./3/rl268ekqxR0sfcusuQA4YmVWRO8jveLa0ZPxu", 
+        avatar: "https://example.com/avatar1.jpg",
+        role: "user",
+        status: "ban",
+        createdAt: "2024-12-08T07:00:00.000Z",
+    },
+    {
+        fullName: "Tran Thi B",
+        userName: "tranthib",
+        email: "tranthib@gmail.com",
+        password: "$2b$10$2c2DMHjpUSeXghJNTvGCNuqbz22OLSX/54v7NdwLXzrOq1QwVUjhO", 
+        avatar: "https://example.com/avatar2.jpg",
+        role: "user",
+        status: "ban",
+        createdAt: "2024-12-08T07:01:00.000Z",
+    },
+    {
+        fullName: "Le Van C",
+        userName: "levanc",
+        email: "levanc@gmail.com",
+        password: "$2b$10$A64C0yoHRqE38GN1Gw289uPJUKSHPbISk79Yq37ObtZto.AFYZOvq", 
+        avatar: "https://example.com/avatar3.jpg",
+        role: "user",
+        status: "ban",
+        createdAt: "2024-12-08T07:02:00.000Z",
+    },
+    {
+        fullName: "Pham Thi D",
+        userName: "phamthid",
+        email: "phamthid@gmail.com",
+        password: "$2b$10$s9itgfkGDsXQnsy25SlpV.PiT9sDLcEs2aFmrkLBOFld3lnFdwQ5y", 
+        avatar: "https://example.com/avatar4.jpg",
+        role: "user",
+        status: "ban",
+        createdAt: "2024-12-08T07:03:00.000Z",
+    },
+    {
+        fullName: "Hoang Van E",
+        userName: "hoangvane",
+        email: "hoangvane@gmail.com",
+        password: "$2b$10$JXQVETbfW.F0a67e8FoPUe66kZfuV/sAK0Yf4ySx9L8yrWtZITzfm", 
+        avatar: "https://example.com/avatar5.jpg",
+        role: "user",
+        status: "ban",
+        createdAt: "2024-12-08T07:04:00.000Z",
+    },
+    {
+        fullName: "Do Thi F",
+        userName: "dothif",
+        email: "dothif@gmail.com",
+        password: "$2b$10$I8LGHw4G5eGW8/QTxhyHvutFbU8/dgK21/x30ohGiMViStjbOvmjG", 
+        avatar: "https://example.com/avatar6.jpg",
+        role: "user",
+        status: "ban",
+        createdAt: "2024-12-08T07:05:00.000Z",
+    },
+    {
+        fullName: "Vo Van G",
+        userName: "vovang",
+        email: "vovang@gmail.com",
+        password: "$2b$10$.rgnBqXqAjrvurvXpBIlXuRTrocZL3TODzbjkO2Z7I1MkcyiTtGNC", 
+        avatar: "https://example.com/avatar7.jpg",
+        role: "user",
+        status: "ban",
+        createdAt: "2024-12-08T07:06:00.000Z",
+    },
+
+    // staff
+    {
+        fullName: "Lê Văn H",
+        userName: "levanh1",
+        email: "levanh1@gmail.com",
+        password: "$2a$10$WxGg2cZf7kq9BdDzFmuEq2bdp5Ihgs2s0l43qM1C2G1uoUrgeMNfi",
+        avatar: "https://example.com/avatar/levanh.jpg",
+        role: "staff",
+        status: "active",
+        createdAt: "2025-01-11T08:00:00.000+00:00",
+    },
+    {
+        fullName: "Nguyễn Minh T",
+        userName: "nguyenminht",
+        email: "nguyenminht@gmail.com",
+        password: "$2a$10$FzZ4rE1JdX5aTm9rMltGFHo4SFiQtIQwwH72OtuL9kqz/OsFZgaQO",
+        avatar: "https://example.com/avatar/nguyenminht.jpg",
+        role: "staff",
+        status: "active",
+        createdAt: "2025-01-11T08:10:00.000+00:00",
+    },
+    {
+        fullName: "Trần Thị A",
+        userName: "tranthia",
+        email: "tranthia@gmail.com",
+        password: "$2a$10$QOGY.EyM5b3AfShA2uF57Idy0s3jExIu6cnL2jRPwRmxhpgJw3OB.",
+        avatar: "https://example.com/avatar/tranthia.jpg",
+        role: "staff",
+        status: "active",
+        createdAt: "2025-01-11T08:15:00.000+00:00",
+    },
+    {
+        fullName: "Phạm Minh T",
+        userName: "phamminht",
+        email: "phamminht@gmail.com",
+        password: "$2a$10$yYg9s0nJcQHeCR2h9PEJ22gAW7DPg/oPjmMlVq3Xx5DDrwFBK5dMi",
+        avatar: "https://example.com/avatar/phamminht.jpg",
+        role: "staff",
+        status: "active",
+        createdAt: "2025-01-11T08:20:00.000+00:00",
+    },
+    {
+        fullName: "Vũ Quang T",
+        userName: "vuquangt",
+        email: "vuquangt@gmail.com",
+        password: "$2a$10$3H1W0mldTY9jfw6mKUK7pLeGmHKhL/oHkcDaW4cd4a4lzV8cEVsIK",
+        avatar: "https://example.com/avatar/vuquangt.jpg",
+        role: "staff",
+        status: "active",
+        createdAt: "2025-01-11T08:30:00.000+00:00",
+    },
+]
+
+// Mock Staff
+const mockStaffs = [
+    
+]
+
+// Mock Admin
+const mockAdmins = [
+
+]
+
+// Mock Address
+const mockAddresses = [
+    {
+        userId: "None",
+        street: "123 Main St",
+        city: "Hanoi",
+        postalCode: "100000",
+        phone: "090xxxx567",
+        notes: "Near the park",
+        isDefault: false,
+    },
+    {
+        userId: "None",
+        street: "456 Second Ave",
+        city: "Ho Chi Minh City",
+        postalCode: "700000",
+        phone: "091xxxx678",
+        notes: "Building with green door",
+        isDefault: false,
+    },
+    {
+        userId: "None",
+        street: "789 Third Blvd",
+        city: "Da Nang",
+        postalCode: "500000",
+        phone: "092xxxx789",
+        notes: "",
+        isDefault: false,
+    },
+    {
+        userId: "None",
+        street: "1010 Fourth Rd",
+        city: "Hanoi",
+        postalCode: "110000",
+        phone: "093xxxx890",
+        notes: "Opposite the bookstore",
+        isDefault: false,
+    },
+    {
+        userId: "None",
+        street: "2020 Fifth St",
+        city: "Haiphong",
+        postalCode: "400000",
+        phone: "094xxxx901",
+        notes: "Near the bus station",
+        isDefault: false,
+    },
+    {
+        userId: "None",
+        street: "3030 Sixth Ave",
+        city: "Nha Trang",
+        postalCode: "200000",
+        phone: "095xxxx012",
+        notes: "Behind the shopping mall",
+        isDefault: false,
+    },
+    {
+        userId: "None",
+        street: "4040 Seventh Blvd",
+        city: "Hue",
+        postalCode: "600000",
+        phone: "096xxxx123",
+        notes: "Near the museum",
+        isDefault: true,
+    },
+    {
+        userId: "None",
+        street: "5050 Eighth Rd",
+        city: "Can Tho",
+        postalCode: "800000",
+        phone: "097xxxx234",
+        notes: "Close to the river",
+        isDefault: false,
+    },
+    {
+        userId: "None",
+        street: "6060 Ninth Ave",
+        city: "Quang Ninh",
+        postalCode: "900000",
+        phone: "098xxxx345",
+        notes: "Next to the university",
+        isDefault: false,
+    },
+    {
+        userId: "None",
+        street: "7070 Tenth St",
+        city: "Vung Tau",
+        postalCode: "100100",
+        phone: "099xxxx456",
+        notes: "Near the beach",
+        isDefault: false,
+    },
+]
+
+
 export const up = async (db, client) => {
     const categories=await db.collection("categories").insertMany(mockCategories);
     const brands=await db.collection("brands").insertMany(mockBrands);
@@ -2471,6 +2626,28 @@ export const up = async (db, client) => {
     const users=await db.collection("users").insertMany(mockUsers);
     const productIdMap = products.insertedIds;
     const userIdMap=users.insertedIds;
+
+    const addresses = await db.collection("addresses").insertMany(mockAddresses);
+
+    // await db.collection("staffs");
+
+    const staffUsers = await db.collection("users").find({ role: "staff" }).toArray();
+
+    if (staffUsers.length > 0) {
+        // Tạo dữ liệu để thêm vào bảng staffs
+        const updatedStaffs = staffUsers.map(user => ({
+            staff_id: user._id,
+            salary: 5000,
+            phone: "000-000-0000",
+            address: "",
+        }));
+
+        updatedStaffs[0].salary = 6000;
+        updatedStaffs[4].salary = 7000;
+
+        // Thêm các nhân viên vào bảng staffs
+        const staffs = await db.collection("staffs").insertMany(updatedStaffs);
+    }
 
     const updatedProductDetails = mockProductDetails.map((detail,index) => {
         return {
@@ -2641,6 +2818,8 @@ export const up = async (db, client) => {
             { $set: { total: newTotal } }
         );
     }
+
+    
 };
 
 export const down = async (db, client) => {
@@ -2669,4 +2848,10 @@ export const down = async (db, client) => {
     await db.collection("categories").drop();
     await db.collection("carts").drop();
     await db.collection("orders").drop();
+
+    // Xóa bảng staff
+    await db.collection("staffs").drop();
+
+    // Xoá bảng address
+    await db.collection("addresses").drop();
 };
