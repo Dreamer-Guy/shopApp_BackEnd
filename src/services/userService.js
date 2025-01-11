@@ -145,6 +145,26 @@ const userServices = {
         user.password=hashedNewPassword;
         await user.save();
         return {success:true,message:user};
+    },
+    async getUserByEmail(email){
+        const user=await User.findOne({email});
+        return user;
+    },
+    async updatePassword(userId, newHashedPassword) {
+        try {
+            const user = await User.findById(userId);
+            if (!user) {
+                return { success: false, message: 'User not found' };
+            }
+
+            user.password = newHashedPassword;
+            await user.save();
+
+            return { success: true };
+        } catch (error) {
+            console.error('Update password error:', error);
+            return { success: false, message: error.message };
+        }
     }
 };
 

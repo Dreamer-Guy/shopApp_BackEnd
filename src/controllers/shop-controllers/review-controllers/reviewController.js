@@ -95,6 +95,20 @@ const getProductReviews = async (req, res) => {
         });
     }
 };
+const getReviewByUserId=async(req,res)=>{
+    try{
+        const userId = req.params.id;
+        const page = req.query.page || 1;
+        const limit = req.query.limit || 5; 
+        const data = await reviewService.getReviewsByUserId(userId,page,limit)
+        return res.status(SUCCESS_STATUS).send(data)
+    }
+    catch(e){
+        return res.status(SERVER_ERROR_STATUS).send({
+            message: 'Server error',
+        });
+    }
+}
 
 
-export { createReview, getProductReviews };
+export { createReview, getProductReviews,getReviewByUserId};
