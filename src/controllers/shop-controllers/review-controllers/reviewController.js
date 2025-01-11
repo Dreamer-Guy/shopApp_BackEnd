@@ -31,7 +31,8 @@ const checkAndGetErrorMessageValidedData=async(req)=>{
     if(isNaN(req.body.rating)){
         return 'Invalid rating';
     }
-    if(!await productService.getProductById(req.body.productId)){
+    const isProductExistById=await productService.getProductById(req.body.productId);
+    if(!isProductExistById){
         return 'Invalid productId';
     }
     return null;
@@ -43,7 +44,7 @@ const checkAndGetErrorMessageForValidation = async (req) => {
         return missFieldErrorMsg;
     }
     const validDataErrorMsg=await checkAndGetErrorMessageValidedData(req);
-    if(validData){
+    if(validDataErrorMsg){
         return validDataErrorMsg;
     };
     return null;
@@ -71,6 +72,7 @@ const createReview = async (req, res) => {
         });
     } 
     catch (e) {
+        console.log(e.message);
         return res.status(SERVER_ERROR_STATUS).send({
             message: 'Server error',
         });
