@@ -17,7 +17,11 @@ const userSchema= new mongoose.Schema({
         type:String,
         default:"active",
         enum:["active","ban"]
-    }
+    },
+    lastTimeLogin:{
+        type:Date,
+        default:Date.now
+    },
 });
 const User=mongoose.model('User',userSchema);
 User.createIndexes();

@@ -1,6 +1,15 @@
 import Cart from '../models/Cart.js';
 
 const cartService = {
+    
+    async createEmptyCart(userId){
+        const newCart = new Cart({
+            userId:userId,
+            items:[]
+        })
+        await newCart.save();
+        return {success:true,data:newCart}
+    },
 
     async createCart(userId,productId,quantity=1){
         let cart = await Cart.findOne({userId:userId})

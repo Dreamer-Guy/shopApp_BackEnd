@@ -116,6 +116,22 @@ const userServices = {
         });
         return totalCustomers;
     },
+    updateLastTimeLogin:async (user)=>{
+        await User.findByIdAndUpdate(user._id,{lastTimeLogin:Date.now()});
+    },
+    async countReturningCustomersInTimeRange(timeRange){
+        const totalCustomers = await User.countDocuments({
+            role: CUSTOMER_ROLE,
+            lastTimeLogin: {
+                $gte: timeRange.start,
+                $lte: timeRange.end,
+            },
+            createdAt: {
+                $lt: timeRange.start,
+            },
+        });
+        return totalCustomers;        
+    },
     async changePassword(userId,oldPassword,newPassword){
         const user=await User.findById(userId);
         if(!user){
