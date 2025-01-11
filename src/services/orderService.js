@@ -55,9 +55,9 @@ const orderService={
         }
         return true;
     },
-    async createOrder(userId,items){
+    async createOrder(userId,items,address){ 
         const total = await calculateTotalAmount(items);
-        const order = new Order({userId:userId,items:items,total:total});
+        const order = new Order({userId:userId,items:items,total:total,address:address});
         await order.save();
         return order;
     },

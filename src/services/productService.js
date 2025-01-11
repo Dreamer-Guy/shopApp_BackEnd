@@ -206,6 +206,18 @@ const productService = {
         .sort({ totalSales: -1 }).limit(Number(limit));
         return products;
     },
+    getLatestProducts: async (limit) => {
+        try {
+            const products = await Product.find({ isDeleted: false })
+                .sort({ createdAt: -1 })
+                .limit(limit)
+                .populate('brand_id')
+                .populate('category_id');
+            return products;
+        } catch (error) {
+            throw error;
+        }
+    },
 };
 
 

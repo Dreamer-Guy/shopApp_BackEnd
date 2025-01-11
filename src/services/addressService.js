@@ -22,11 +22,22 @@ const addressService = {
         return address;
     },
 
-    async updateAddress(addressId, updateData){
-        const address = await Address.findByIdAndUpdate(addressId, updateData, { new: true });
-        return address;
+    async updateAddress(userId, updateData){
+      const address = await Address.findOne({userId:userId})
+      if(!address){
+        const dataFormat = {
+          ...updateData,
+          userId:userId
+        }
+       const newAddress = await this.createAddress(dataFormat);
+       await this.saveAddress(newAddress);
+       return newAddress;
+      }
+      else{
+        const updatedAddress = await Address.findOneAndUpdate({userId:userId},updateData,{new:true});
+        return updatedAddress;
+      }
     },
-
     async deleteAddress(addressId) {
         const address = await Address.findByIdAndDelete(addressId);
         return address;
@@ -55,7 +66,10 @@ const addressService = {
 
         return address;
     },
-
+    async getAddressByUserId(userId){
+        const address = await Address.findOne({userId:userId});
+        return address;
+    }
 };
 
 export default addressService;

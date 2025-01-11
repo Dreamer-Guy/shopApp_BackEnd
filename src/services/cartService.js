@@ -1,6 +1,15 @@
 import Cart from '../models/Cart.js';
 
 const cartService = {
+    
+    async createEmptyCart(userId){
+        const newCart = new Cart({
+            userId:userId,
+            items:[]
+        })
+        await newCart.save();
+        return {success:true,data:newCart}
+    },
 
     async createCart(userId,productId,quantity=1){
         let cart = await Cart.findOne({userId:userId})
@@ -54,7 +63,7 @@ const cartService = {
         return {success:false,data:"Product Id is required"};
     },
 
-    async deleteItemFromCart(userId,productId){
+    async deleteItemFromCart(userId,productId,quantity){
         const cart=await Cart.findOne({userId})
         if(!cart){
             return ({success:false,data:"Cart not found"});
@@ -65,7 +74,20 @@ const cartService = {
             if(itemIndex===-1){
               return ({success:false,data:"Product not found in cart"})
             }
-            cart.items.splice(itemIndex,1);
+            if(quantity)
+            {
+               if(quantity>cart.items[itemIndex].quantity)
+               {
+                    return ({success:false,data:"Invalid quantity"})
+               }
+               cart.items[itemIndex].quantity-=quantity
+               if(cart.items[itemIndex].quantity === 0) {
+                cart.items.splice(itemIndex, 1);
+            }
+            }
+            else{
+                cart.items.splice(itemIndex,1);
+            }
             await cart.save();
             const populatedCart = await Cart.findOne({userId})
                 .populate('items.productId')
