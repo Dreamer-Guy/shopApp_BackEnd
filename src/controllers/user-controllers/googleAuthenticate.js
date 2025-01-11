@@ -109,6 +109,7 @@ const authGoogleCallback = async (req, res) => {
         }   
         const newUser = await createNewUserByGoogleUserInfoResponse(resUserInfo);
         await userServices.saveUser(newUser);
+        await userServices.updateLastTimeLogin(user);
         const token = createToken(newUser);
         return res
             .status(SUCCESS_STATUS)

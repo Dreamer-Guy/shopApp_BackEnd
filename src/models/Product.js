@@ -34,6 +34,7 @@ const productSchema= new mongoose.Schema({
     status:{type:String,default:"On stock"},
     createdAt:{type:Date,default:Date.now},
     totalSales:{type:Number,default:0},
+    cost:{type:Number,required:true},
 });
 
 //exptected receit an arr
