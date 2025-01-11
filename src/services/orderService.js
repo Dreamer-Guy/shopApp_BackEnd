@@ -57,7 +57,15 @@ const orderService={
     },
     async createOrder(userId,items,address){ 
         const total = await calculateTotalAmount(items);
-        const order = new Order({userId:userId,items:items,total:total,address:address});
+        const itemsFromDb = await Product.find({_id:{$in:items.map(item=>item.productId)}})
+        const itemsFormatted = items.map(item=>({
+            name:itemsFromDb.find(product=>product._id.toString()===item.productId.toString()).name,
+            cost:itemsFromDb.find(product=>product._id.toString()===item.productId.toString()).cost,
+            image:itemsFromDb.find(product=>product._id.toString()===item.productId.toString()).image,
+            price:itemsFromDb.find(product=>product._id.toString()===item.productId.toString()).price,
+            quantity:item.quantity
+        }))
+        const order = new Order({userId:userId,items:itemsFormatted,total:total,address:address});
         await order.save();
         return order;
     },
@@ -107,9 +115,13 @@ const orderService={
         const updateOrder= await order.save()
         return ({success:true,data:updateOrder})
     },
-    async getOrderByUserId(userId){
+    async getOrderByUserId({userId,page,limit}){
+        const totalOrders=await Order.countDocuments({userId:userId});
         const orders = await Order.find({userId:userId})
-        return orders
+        .skip((page-1)*limit)
+        .limit(limit)
+        .lean();
+        return {orders,totalPages:Math.ceil(totalOrders/limit)}
     },
 
     async getOrders(){
@@ -197,6 +209,11 @@ const orderService={
         },0);
         return totalPurchased;
     },
+    getOrderDetailsById:async(orderId)=>{
+        const order=await Order.findById(orderId)
+        console.log(order)
+        return order;
+    },
     calculateTotalCostInTimeRange:async(timeRange)=>{
         const orders=await orderService.getOrdersFromGivenTimeRange(timeRange);
         const totalCost=orders.reduce((acc,order)=>{
@@ -208,6 +225,6 @@ const orderService={
         },0);
         return totalCost;
     },
-}
 
+}
 export default orderService;
