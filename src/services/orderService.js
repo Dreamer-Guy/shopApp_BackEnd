@@ -200,7 +200,12 @@ const orderService={
             return acc+totalPurchasedInAnOrder;
         },0);
         return totalPurchased;
+    },
+    getOrderDetailsById:async(orderId)=>{
+        const order=await Order.findById(orderId)
+        .populate('items.productId')
+        .lean();
+        return order;
     }
 }
-
 export default orderService;

@@ -5,7 +5,9 @@ import {
     updateStatusOrder,
     updatePaymentStatusOrder,
     updateOrder,deleteOrderById,
-    getOrderByUserId} 
+    getOrderByUserId,
+    getOrderDetailsById
+} 
     from "../../controllers/shop-controllers/order-controllers/orderController.js";
 
 const orderRoute =express.Router()
@@ -26,6 +28,7 @@ orderRoute.put("/:id",verifyUserJWT,updateOrder)
 orderRoute.delete("/cancel/:id",verifyUserJWT,deleteOrderById)
 
 orderRoute.get("/:id",verifyUserJWT,getOrderByUserId)
+orderRoute.get("/orderDetail/:id",verifyUserJWT,getOrderDetailsById)
 
 
 

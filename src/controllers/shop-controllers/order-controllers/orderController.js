@@ -143,5 +143,24 @@ const getOrderByUserId  = async (req,res)=>{
         return res.status(SERVER_ERROR_STATUS).send({success:false,message:"Server error"})
     }
 };
-export{
-    placeOrder,updateStatusOrder,updatePaymentStatusOrder,updateOrder,deleteOrderById,getOrderByUserId};
+const getOrderDetailsById=async(req,res)=>{
+    try{
+        const orderId = req.params.id
+        console.log(orderId)
+        if(!orderId){
+            return res.status(BAD_REQUEST_STATUS).send({success:false,message:"Invalid request"})
+        }
+        const order = await orderService.getOrderDetailsById(orderId)
+        return res.status(SUCCESS_STATUS).json(order)
+    }
+    catch{
+        return res.status(SERVER_ERROR_STATUS).send({success:false,message:"Server error"})
+    }
+}
+export{placeOrder,
+    updateStatusOrder,
+    updatePaymentStatusOrder,
+    updateOrder,
+    deleteOrderById,
+    getOrderByUserId,
+    getOrderDetailsById};
