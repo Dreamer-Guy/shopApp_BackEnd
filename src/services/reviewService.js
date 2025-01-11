@@ -27,8 +27,27 @@ const reviewService = {
                 .sort({ rating: -1 })
                 .lean();
         return reviews;
+
     },
-    
+    async getReviewsByUserId(userId,page,limit){
+        const reviews = await Review
+        .find({userId})
+        .populate('productId')
+        .skip((page-1)*limit)
+        .limit(limit)
+        .lean();
+        const totalReviews = await Review.countDocuments({userId});
+        const totalPages = Math.ceil(totalReviews/limit);
+        const formattedReviews = reviews.map(review => ({
+            comment:review.comment,
+            rating:review.rating,
+            productId:review.productId._id,
+            productName:review.productId.name,
+            productImage:review.productId.image,
+            createdAt:review.createdAt,
+        }));
+        return {reviews:formattedReviews,totalReviews,totalPages};
+    }
 }
 
 export default reviewService
