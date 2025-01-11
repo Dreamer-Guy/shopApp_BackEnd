@@ -56,6 +56,7 @@ const loginUser = async (req, res) => {
             });
         }
         const token = createToken(user);
+        await userServices.updateLastTimeLogin(user);
         return res.status(SUCCESS_STATUS)
             .cookie(TOKEN_NAME, token, {
                 httpOnly: true,

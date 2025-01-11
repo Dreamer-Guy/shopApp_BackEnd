@@ -196,7 +196,18 @@ const orderService={
             return acc+totalPurchasedInAnOrder;
         },0);
         return totalPurchased;
-    }
+    },
+    calculateTotalCostInTimeRange:async(timeRange)=>{
+        const orders=await orderService.getOrdersFromGivenTimeRange(timeRange);
+        const totalCost=orders.reduce((acc,order)=>{
+            const totalCostInAnOrder=order.items.reduce(async(acc,item)=>{
+                const product=await Product.findById(item.productId);
+                return acc+product.cost*item.quantity;
+            },0);
+            return acc+totalCostInAnOrder;
+        },0);
+        return totalCost;
+    },
 }
 
 export default orderService;
