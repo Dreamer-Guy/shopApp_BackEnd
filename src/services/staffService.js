@@ -28,6 +28,17 @@ const staffService = {
     deleteStaffProperties:async(id)=>{
         await StaffProperties.findOneAndDelete({staff_id:id});
     },
+    calculateTotalSalary:async()=>{
+        const totalSalary=await StaffProperties.aggregate([
+            {
+                $group:{
+                    _id:null,
+                    totalSalary:{$sum:"$salary"}
+                }
+            }
+        ]);
+        return totalSalary[0].totalSalary;
+    }
 };
 
 export default staffService;
