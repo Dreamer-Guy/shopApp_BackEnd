@@ -22,6 +22,7 @@ const staffService = {
         };
     },
     updateStaffProperties:async(id,staffProperties)=>{
+        console.log(id)
         const staff=await StaffProperties.findOneAndUpdate({staff_id:id},staffProperties,{new:true});
         return staff;
     },
