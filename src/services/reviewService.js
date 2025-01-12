@@ -46,6 +46,16 @@ const reviewService = {
             createdAt:review.createdAt,
         }));
         return {reviews:formattedReviews,totalReviews,totalPages};
+    },
+
+    async checkReviewOwner(userId,reviewId){
+        const review = await Review.findById(reviewId);
+        return review.userId.toString() === userId.toString();
+    },
+
+    async deleteReview(id){
+        const deletedReview=await Review.findByIdAndDelete(id);
+        return deletedReview;
     }
 }
 

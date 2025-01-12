@@ -218,6 +218,13 @@ const productService = {
             throw error;
         }
     },
+
+    updateProductAfterDeletingReview: async ({productId,rating}) => {
+        const product = await Product.findById(productId);
+        product.rating = (product.rating * product.numReviews - Number(rating)) / (product.numReviews - 1);
+        product.numReviews -= 1;
+        await product.save();
+    },
 };
 
 
