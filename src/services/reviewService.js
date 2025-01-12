@@ -56,7 +56,12 @@ const reviewService = {
     async deleteReview(id){
         const deletedReview=await Review.findByIdAndDelete(id);
         return deletedReview;
-    }
+    },
+
+    async getTotalReviewsByProduct(productId){
+        const totalReviews = await Review.countDocuments({productId});
+        return totalReviews;
+    },
 }
 
 export default reviewService

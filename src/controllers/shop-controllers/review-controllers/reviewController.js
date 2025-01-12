@@ -92,9 +92,10 @@ const getProductReviews = async (req, res) => {
             page,
             limit,
         });
+        const totalReviews=await reviewService.getTotalReviewsByProduct(productId);
         return res.status(SUCCESS_STATUS).send({
             reviews:reviews.map(review=>populateReview(review)),
-            totalReviews:reviews.length,
+            totalReviews:totalReviews,
         });
     } 
     catch (e) {
