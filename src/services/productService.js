@@ -181,7 +181,19 @@ const productService = {
     },
     updateByProductRating: async (productId, rating) => {
         const product = await Product.findById(productId);
-        product.rating = (product.rating * product.numReviews + Number(rating)) / (product.numReviews + 1);
+        if (!product) {
+            throw new Error('Product not found');
+        }
+        
+        if (product.numReviews === 0) {
+            product.rating = Number(rating);
+        } else {
+            const currentTotalRating = product.rating * product.numReviews;
+            const newTotalRating = currentTotalRating + Number(rating);
+
+            product.rating = Number((newTotalRating / (product.numReviews + 1)).toFixed(1));
+        }
+        
         product.numReviews += 1;
         await product.save();
     },
@@ -219,10 +231,19 @@ const productService = {
         }
     },
 
-    updateProductAfterDeletingReview: async ({productId,rating}) => {
+    updateProductAfterDeletingReview: async ({productId, rating}) => {
         const product = await Product.findById(productId);
-        product.rating = (product.rating * product.numReviews - Number(rating)) / (product.numReviews - 1);
-        product.numReviews -= 1;
+        if (!product || product.numReviews <= 1) {
+            product.rating = 0;
+            product.numReviews = 0;
+        } else {
+            // Tính tổng rating hiện tại và trừ đi rating bị xóa
+            const currentTotalRating = product.rating * product.numReviews;
+            const newTotalRating = currentTotalRating - Number(rating);
+            // Tính trung bình mới
+            product.rating = Number((newTotalRating / (product.numReviews - 1)).toFixed(1));
+            product.numReviews -= 1;
+        }
         await product.save();
     },
 };

@@ -95,6 +95,8 @@ const getProductReviews = async (req, res) => {
         return res.status(SUCCESS_STATUS).send({
             reviews:reviews.map(review=>populateReview(review)),
             totalReviews:totalReviews,
+            page:page,
+            limit:limit,
         });
     } 
     catch (e) {
