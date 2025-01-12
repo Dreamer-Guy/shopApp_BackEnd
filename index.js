@@ -27,6 +27,7 @@ import orderRouter from "./src/routes/shop/orderRoute.js"
 
 import utilsRouter from "./src/routes/utilsRoute.js";
 
+import staffRouter from "./src/routes/staff/staffRoute.js";
 const corsOptions = {
     origin: `${process.env.FRONTEND_BASE_URL}`,
     credentials: true, 
@@ -61,6 +62,7 @@ app.use("/admin/orders", adminOrderRouter);
 app.use("/admin/metrics", adminMetricsRouter);
 
 app.use("/utils", utilsRouter);
+app.use("/staff", staffRouter);
 
 
 
