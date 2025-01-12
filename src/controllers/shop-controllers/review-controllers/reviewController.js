@@ -116,5 +116,31 @@ const getReviewByUserId=async(req,res)=>{
     }
 }
 
+const deleteReview=async(req,res)=>{
+    try{
+        const reviewId=req.params.id;
+        const isOnwerDeleting=await reviewService.checkReviewOwner(req.user._id,reviewId);
+        if(!isOnwerDeleting){
+            return res.status(BAD_REQUEST_STATUS).send({
+                message: 'You are not the owner of this review',
+            });
+        }
+        const deletedReview=await reviewService.deleteReview(reviewId);
+        await productService.updateProductAfterDeletingReview({productId:deletedReview.productId,rating:deletedReview.rating});
+        return res.status(SUCCESS_STATUS).send(reviewId);
+    }
+    catch(e){
+        return res.status(SERVER_ERROR_STATUS).send({
+            message: 'Server error',
+        });
+    }
+};
 
-export { createReview, getProductReviews,getReviewByUserId};
+const reviewController={
+    createReview,
+    getProductReviews,
+    getReviewByUserId,
+    deleteReview,
+}
+
+export default reviewController;
