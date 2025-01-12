@@ -7,8 +7,11 @@ const SERVER_ERROR_STATUS = 500;
 
 
 const populateReview=(review)=>{
+    const year=review.createdAt.getFullYear();
+    const month=(review.createdAt.getMonth()+1).toString().padStart(2,'0');
+    const date=review.createdAt.getDate().toString().padStart(2,'0');
     const populatedReview={...review,
-        createdAt:`${review.createdAt.getDate()}/${review.createdAt.getMonth()+1}/${review.createdAt.getFullYear()}`,
+        createdAt:`${year}-${month}-${date}`,
     };
     return populatedReview;
 };
@@ -67,9 +70,8 @@ const createReview = async (req, res) => {
         const review = await reviewService.createReview(reviewData);
         const savedReview=await reviewService.saveReview(review);
         await productService.updateByProductRating(reviewData.productId, savedReview.rating);
-        return res.status(SUCCESS_STATUS).send({
-            review: savedReview,
-        });
+        console.log(savedReview);
+        return res.status(SUCCESS_STATUS).send(populateReview(savedReview._doc));
     } 
     catch (e) {
         console.log(e.message);
@@ -82,14 +84,18 @@ const createReview = async (req, res) => {
 const getProductReviews = async (req, res) => {
     try {
         const productId = req.params.productId;
+        const {page=1,limit=5}=req.query;
         const ratingFilter = req.query.rating ? parseInt(req.query.rating) : null;
         const reviews = await reviewService.getReviewsByProduct({
             productId,
             ratingFilter,
+            page,
+            limit,
         });
         return res.status(SUCCESS_STATUS).send(reviews.map(review=>populateReview(review)));
     } 
     catch (e) {
+        console.log(e.message);
         res.status(SERVER_ERROR_STATUS).send({
             message: 'Server error',
         });

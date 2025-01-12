@@ -12,19 +12,18 @@ const reviewService = {
         return saved;
     },
     
-    async getReviewsByProduct(productId, ratingFilter){
+    async getReviewsByProduct({ productId, ratingFilter, page, limit }) {
         const filter = { productId };
 
         if (ratingFilter) {
             filter.rating = ratingFilter;
-
-            const reviews = await Review.find(filter).populate('userId').lean();
-            return reviews;
         }
 
-        const reviews = await Review.find(productId)
+        const reviews = await Review.find(filter)
                 .populate('userId')
-                .sort({ rating: -1 })
+                .sort({ createdAt: -1 })
+                .skip((page - 1) * limit)
+                .limit(limit)
                 .lean();
         return reviews;
 
