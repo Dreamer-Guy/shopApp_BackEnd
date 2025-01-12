@@ -102,16 +102,16 @@ const productController={
                 res.status(BAD_REQUEST_STATUS)
                 .send({message:"Please provide essential data to add product"});
             };
-            if(!await categoryService.isExistById(req.body.product.category_id)){
+            const product=JSON.parse(req.body.product);
+            if(!await categoryService.isExistById(product.category_id)){
                 res.status(BAD_REQUEST_STATUS)
                 .send({message:"Category does not exist"});
                 return;
             }
-            if(!await brandService.isExistById(req.body.product.brand_id)){
+            if(!await brandService.isExistById(product.brand_id)){
                 res.status(BAD_REQUEST_STATUS)
                 .send({message:"Brand does not exist"});
             }
-            const product=JSON.parse(req.body.product);
             const image=await uploadImageAndDeleteFromDisk(req.file);
             const productRes=await productService.create({...product,image});
             const savedProduct=await productService.save(productRes);
@@ -120,6 +120,7 @@ const productController={
             .status(SUCCESS_STATUS)
             .send(savedProduct);
         }catch(err){
+            console.log(err.message);
             res.status(SERVER_ERROR_STATUS)
                 .send({message:err.message});
         }

@@ -1,5 +1,7 @@
 import Category from "../models/Category.js";
 
+const DEFAULT_CATEGORY_NAME='default';
+
 const categoryService={
     isExistByName:async(name)=>{
         return await Category.exists({name});
@@ -25,6 +27,10 @@ const categoryService={
     },
     isExistById:async(id)=>{
         return await Category.exists({_id:id});
+    },
+    getDefaultCategory:async()=>{
+        const category=await Category.findOne({name:DEFAULT_CATEGORY_NAME}).lean();
+        return category;
     },
 
 };

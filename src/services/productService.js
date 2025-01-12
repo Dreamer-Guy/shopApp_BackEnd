@@ -1,5 +1,7 @@
 import mongoose from "mongoose";
 import Product from "../models/Product.js";
+import brandService from "./brandService.js";
+import categoryService from "./categoryService.js";
 
 
 const productService = {
@@ -42,7 +44,10 @@ const productService = {
     },
     
     getProductById: async (productId) => {
-        const product = await Product.findById(productId).populate('brand_id').populate('category_id').lean();
+        const product = await Product
+        .findById(productId)
+        .populate('brand_id')
+        .populate('category_id').lean();
         return product;
     },
 
@@ -224,6 +229,16 @@ const productService = {
         product.rating = (product.rating * product.numReviews - Number(rating)) / (product.numReviews - 1);
         product.numReviews -= 1;
         await product.save();
+    },
+
+    updateAfterDeletingBrand: async (brandId) => {
+        const defaultBrand = await brandService.getDefaultBrand();
+        await Product.updateMany({ brand_id: brandId }, { brand_id: defaultBrand._id });
+    },
+
+    updateAfterDeletingCategory: async (categoryId) => {
+        const defaultCategory = await categoryService.getDefaultCategory();
+        await Product.updateMany({ category_id: categoryId }, { category_id: defaultCategory._id });
     },
 };
 

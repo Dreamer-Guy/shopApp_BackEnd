@@ -1,6 +1,8 @@
 import deleteImageFromDisk from "../../utils/deleteImageFromDisk.js";
 import uploadImageToCloud from "../../utils/uploadImageToCloud.js";
 import brandService from "../../services/brandService.js";
+import productService from "../../services/productService.js";
+
 const OK_STATUS=200;
 const BAD_REQUEST_STATUS=400;
 const INTERNAL_SERVER_ERROR_STATUS=500;
@@ -60,8 +62,9 @@ const deleteBrand = async (req, res) => {
         const brandId=req.params.id;
         const brand=await brandService.getBrandById(brandId);
         if(brand){
+            await productService.updateAfterDeletingBrand(brandId);
             await brandService.deleteByBrandId(brandId);
-            return res.status(OK_STATUS).send({message:"Brand deleted successfully"});
+            return res.status(OK_STATUS).send(brandId);
         }
         return res.status(BAD_REQUEST_STATUS).send({message:"Brand not found"});
     }
@@ -103,5 +106,11 @@ const updateBrand = async (req, res) => {
     
 };
 
+const adminBrandController = {
+    getAllBrands,
+    addBrand,
+    updateBrand,
+    deleteBrand
+};
 
-export {getAllBrands,addBrand,updateBrand,deleteBrand};
+export default adminBrandController;

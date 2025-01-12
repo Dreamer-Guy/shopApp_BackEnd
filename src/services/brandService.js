@@ -1,5 +1,6 @@
 import Brand from "../models/Brand.js";
 
+const DEFAULT_BRAND_NAME='default';
 
 const brandService={
     isExistByName:async(name)=>{
@@ -26,6 +27,10 @@ const brandService={
     },
     isExistById:async(id)=>{
         return await Brand.exists({_id:id});
+    },
+    getDefaultBrand:async()=>{
+        const brand=await Brand.findOne({name:DEFAULT_BRAND_NAME}).lean();
+        return brand;
     },
 };
 
