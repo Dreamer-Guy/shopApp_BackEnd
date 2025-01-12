@@ -59,10 +59,13 @@ const orderService={
         const total = await calculateTotalAmount(items);
         const itemsFromDb = await Product.find({_id:{$in:items.map(item=>item.productId)}})
         const itemsFormatted = items.map(item=>({
+
             name:itemsFromDb.find(product=>product._id.toString()===item.productId.toString()).name,
             cost:itemsFromDb.find(product=>product._id.toString()===item.productId.toString()).cost,
             image:itemsFromDb.find(product=>product._id.toString()===item.productId.toString()).image,
-            price:itemsFromDb.find(product=>product._id.toString()===item.productId.toString()).price,
+            price:itemsFromDb.find(product=>product._id.toString()===item.productId.toString()).salePrice?
+            itemsFromDb.find(product=>product._id.toString()===item.productId.toString()).salePrice
+            :itemsFromDb.find(product=>product._id.toString()===item.productId.toString()).price,
             quantity:item.quantity
         }))
         const order = new Order({userId:userId,items:itemsFormatted,total:total,address:address});
@@ -211,7 +214,6 @@ const orderService={
     },
     getOrderDetailsById:async(orderId)=>{
         const order=await Order.findById(orderId)
-        console.log(order)
         return order;
     },
     calculateTotalCostInTimeRange:async(timeRange)=>{

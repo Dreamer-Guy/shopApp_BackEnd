@@ -33,12 +33,10 @@ const placeOrder = async (req,res)=>{
         for (let item of items) {
             const { success, data } = await cartService.deleteItemFromCart(userId, item.productId, item.quantity);
             if(!success){
-                console.log(data)
                 return res.status(SERVER_ERROR_STATUS).send({success:false,message:"Can not remove item from cart"})
             }
         }
         const order =await orderService.createOrder(userId,items,addressFormatted)
-        console.log(order)
         res.status(SUCCESS_STATUS).send({success:true,message:"Order successful"})
     }
     catch{
@@ -146,7 +144,6 @@ const getOrderByUserId  = async (req,res)=>{
 const getOrderDetailsById=async(req,res)=>{
     try{
         const orderId = req.params.id
-        console.log(orderId)
         if(!orderId){
             return res.status(BAD_REQUEST_STATUS).send({success:false,message:"Invalid request"})
         }

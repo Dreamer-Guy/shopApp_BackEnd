@@ -70,7 +70,6 @@ const createReview = async (req, res) => {
         const review = await reviewService.createReview(reviewData);
         const savedReview=await reviewService.saveReview(review);
         await productService.updateByProductRating(reviewData.productId, savedReview.rating);
-        console.log(savedReview);
         return res.status(SUCCESS_STATUS).send(populateReview(savedReview._doc));
     } 
     catch (e) {
