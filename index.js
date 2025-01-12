@@ -22,6 +22,7 @@ import adminrevenueRouter from "./src/routes/admin/revenue.js";
 import adminStaffRouter from "./src/routes/admin/staff.js";
 import adminOrderRouter from "./src/routes/admin/order.js";
 import adminMetricsRouter from "./src/routes/admin/metrics.js";
+import adminReviewRouter from "./src/routes/admin/review.js"
 
 import orderRouter from "./src/routes/shop/orderRoute.js"
 
@@ -59,6 +60,7 @@ app.use("/admin/revenues", adminrevenueRouter);
 app.use("/admin/staffs", adminStaffRouter);
 app.use("/admin/orders", adminOrderRouter);
 app.use("/admin/metrics", adminMetricsRouter);
+app.use("/admin/reviews", adminReviewRouter);
 
 app.use("/utils", utilsRouter);
 

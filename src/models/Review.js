@@ -21,7 +21,23 @@ const reviewSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    createdAt: {type: Date,default: Date.now,},
+    reply: {
+        content: String,
+        staffId: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User'
+        },
+        createdAt: Date
+    },
+    status: {
+        type: String,
+        enum: ['pending', 'replied'],
+        default: 'pending'
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now
+    }
 });
 
 const Review = mongoose.model('Review', reviewSchema);
