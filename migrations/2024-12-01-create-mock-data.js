@@ -2094,8 +2094,8 @@ const mockOrders = [
             phone: ""
         },
         total: 100784,
-        orderStatus: "pending",
-        checkoutStatus: "unpaid",
+        status: "pending",
+        paymentStatus: false,
         createdAt: "2024-12-03T14:56:08.477+00:00",
     },
     // Order 2
@@ -2125,8 +2125,8 @@ const mockOrders = [
             phone: "0987654321"
         },
         total: 1199,
-        orderStatus: "pending",
-        checkoutStatus: "unpaid",
+        status: "pending",
+        paymentStatus: false,
         createdAt: "2024-12-04T10:30:00.000+00:00",
     },
     // Order 3
@@ -2156,8 +2156,8 @@ const mockOrders = [
             phone: "0931122334"
         },
         total: 1399,
-        orderStatus: "processing",
-        checkoutStatus: "unpaid",
+        status: "processing",
+        paymentStatus: false,
         createdAt: "2024-12-05T12:45:00.000+00:00",
     },
     // Order 4
@@ -2180,8 +2180,8 @@ const mockOrders = [
             phone: "0911223344"
         },
         total: 399,
-        orderStatus: "processing",
-        checkoutStatus: "paid",
+        status: "processing",
+        paymentStatus: true,
         createdAt: "2024-12-06T09:00:00.000+00:00",
     },
     // Order 5
@@ -2204,8 +2204,8 @@ const mockOrders = [
             phone: "0901234567"
         },
         total: 999,
-        orderStatus: "completed",
-        checkoutStatus: "unpaid",
+        status: "completed",
+        paymentStatus: false,
         createdAt: "2024-12-07T15:20:00.000+00:00",
     },
     // Order 6
@@ -2228,8 +2228,8 @@ const mockOrders = [
             phone: "090xxxx567"
         },
         total: 999,
-        orderStatus: "completed",
-        checkoutStatus: "paid",
+        status: "completed",
+        paymentStatus: true,
         createdAt: "2024-12-07T15:20:00.000+00:00",
     },
     // Order 7
@@ -2259,8 +2259,8 @@ const mockOrders = [
             phone: "0909001234"
         },
         total: 1797,
-        orderStatus: "pending",
-        checkoutStatus: "unpaid",
+        status: "pending",
+        paymentStatus: false,
         createdAt: "2024-12-04T10:20:30.477+00:00"
     },
     // Order 8
@@ -2283,8 +2283,8 @@ const mockOrders = [
             phone: "0933001234"
         },
         total: 499,
-        orderStatus: "processing",
-        checkoutStatus: "paid",
+        status: "processing",
+        paymentStatus: true,
         createdAt: "2024-12-07T15:50:00.000+00:00"
     },
     // Order 9
@@ -2314,8 +2314,8 @@ const mockOrders = [
             phone: "0928007890"
         },
         total: 1898,
-        orderStatus: "completed",
-        checkoutStatus: "unpaid",
+        status: "completed",
+        paymentStatus: false,
         createdAt: "2024-12-06T08:30:45.000+00:00"
     },
     // Order 10
@@ -2338,8 +2338,8 @@ const mockOrders = [
             phone: "094xxxxx32"
         },
         total: 1898,
-        orderStatus: "completed",
-        checkoutStatus: "paid",
+        status: "completed",
+        paymentStatus: true,
         createdAt: "2024-12-06T08:30:45.000+00:00"
     },
 ]
