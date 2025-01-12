@@ -2356,7 +2356,7 @@ const mockUsers=[
         avatar: "https://lh3.googleusercontent.com/a/ACg8ocLM8bNJw0NiUYgSnFdZ-jIUnxDKfQ…",
         role: "user",
         status: "active",
-        createdAt: "2024-11-22T06:41:57.622+00:00",
+        createdAt: new Date("2024-11-22T06:41:57.622+00:00"),
     },
     {
         fullName: "Nguyen quoc vinh",
@@ -2366,7 +2366,7 @@ const mockUsers=[
         avatar: "",
         role: "user",
         status: "active",
-        createdAt: "2024-11-24T14:22:21.243+00:00",
+        createdAt: new Date("2024-11-24T14:22:21.243+00:00"),
     },
     {
         fullName: "abc",
@@ -2376,7 +2376,7 @@ const mockUsers=[
         avatar: "",
         role: "user",
         status: "active",
-        createdAt: "2024-11-24T17:29:19.582+00:00",
+        createdAt: new Date("2024-11-24T17:29:19.582+00:00"),
     },
     {
         fullName: "Nguyen quoc vinh",
@@ -2386,7 +2386,7 @@ const mockUsers=[
         avatar: "",
         role: "user",
         status: "active",
-        createdAt: "2024-11-29T01:03:40.420+00:00",
+        createdAt: new Date("2024-11-29T01:03:40.420+00:00"),
     },
     {
         fullName: "Trần Minh Sơn",
@@ -2396,7 +2396,7 @@ const mockUsers=[
         avatar: "https://lh3.googleusercontent.com/a/ACg8ocL3JsRS8yKzjLtPRfd_ErpXKFZOax…",
         role: "user",
         status: "active",
-        createdAt: "2024-11-29T01:24:07.848+00:00",
+        createdAt: new Date("2024-11-29T01:24:07.848+00:00"),
     },
     {
         fullName: "son",
@@ -2406,7 +2406,7 @@ const mockUsers=[
         avatar: "",
         role: "user",
         status: "active",
-        createdAt: "2024-11-29T01:24:48.677+00:00",
+        createdAt: new Date("2024-11-29T01:24:48.677+00:00"),
     },
     {
         fullName: "duc toan",
@@ -2416,7 +2416,7 @@ const mockUsers=[
         avatar: "",
         role: "user",
         status: "active",
-        createdAt: "2024-11-30T06:39:41.012+00:00",
+        createdAt: new Date("2024-11-30T06:39:41.012+00:00"),
     },
     {
         fullName: "Duc Toan Nguyen",
@@ -2426,57 +2426,57 @@ const mockUsers=[
         avatar: "https://lh3.googleusercontent.com/a/ACg8ocJuMbPymBYpD88AuzQ20OWZ4k4CpM…",
         role: "user",
         status: "active",
-        createdAt: "2024-11-30T06:40:23.805+00:00",
+        createdAt: new Date("2024-11-30T06:40:23.805+00:00"),
     },
     {
         fullName: "Alice Johnson",
         userName: "AliceJ123",
         email: "alice.johnson@gmail.com",
-        password: "$2b$10$wa5dNYwTH.2rR1Wi3CvpO.CUep.srTKWzLjQj/KIhmnrThgQ/7RX.", // bcrypt hashed password
+        password: "$2b$10$wa5dNYwTH.2rR1Wi3CvpO.CUep.srTKWzLjQj/KIhmnrThgQ/7RX.",
         avatar: "https://example.com/avatar/alice.jpg",
         role: "user",
         status: "active",
-        createdAt: "2024-11-28T08:30:00.000+00:00",
+        createdAt: new Date("2024-11-28T08:30:00.000+00:00"),
     },
     {
         fullName: "Bob Smith",
         userName: "BobTheCoder",
         email: "bob.smith@gmail.com",
-        password: "$2b$10$Mjj/8a41S6IvZfRYuBnvPeshLH6GX781Qzacu8eDWenOPhPwXeKMq", // bcrypt hashed password
+        password: "$2b$10$Mjj/8a41S6IvZfRYuBnvPeshLH6GX781Qzacu8eDWenOPhPwXeKMq",
         avatar: "https://example.com/avatar/bob.jpg",
         role: "user",
         status: "active",
-        createdAt: "2024-12-01T10:15:00.000+00:00",
+        createdAt: new Date("2024-12-01T10:15:00.000+00:00"),
     },
     {
         fullName: "Charlie Nguyen",
         userName: "CharlieN22",
         email: "charlie.nguyen@gmail.com",
-        password: "$2b$10$K2Dit9SbBJSjBuFC8i7D9eaTGA3RbFvQSs1UZvkz05.JCsDMI4Bfa", // bcrypt hashed password
+        password: "$2b$10$K2Dit9SbBJSjBuFC8i7D9eaTGA3RbFvQSs1UZvkz05.JCsDMI4Bfa",
         avatar: "https://example.com/avatar/charlie.jpg",
         role: "user",
         status: "ban",
-        createdAt: "2024-11-29T12:45:00.000+00:00",
+        createdAt: new Date("2024-11-29T12:45:00.000+00:00"),
     },
     {
         fullName: "Diana Carter",
         userName: "DianaC_99",
         email: "diana.carter@gmail.com",
-        password: "$2b$10$sOMK/PXw4wQI3sNriHyvK.aaFmBzelwxCAzcIfyPzb/Bd9wkFQojG", // bcrypt hashed password
+        password: "$2b$10$sOMK/PXw4wQI3sNriHyvK.aaFmBzelwxCAzcIfyPzb/Bd9wkFQojG",
         avatar: "https://example.com/avatar/diana.jpg",
         role: "user",
         status: "ban",
-        createdAt: "2024-12-02T05:00:00.000+00:00",
+        createdAt: new Date("2024-12-02T05:00:00.000+00:00"),
     },
     {
         fullName: "Evan Lee",
         userName: "EvanLPro",
         email: "evan.lee@gmail.com",
-        password: "$2b$10$BA7Rn84wISdsUxy.Jb5hhuyn9aTXKAeZNeSoguGui47Sa5Udrs0w.", // bcrypt hashed password
+        password: "$2b$10$BA7Rn84wISdsUxy.Jb5hhuyn9aTXKAeZNeSoguGui47Sa5Udrs0w.",
         avatar: "https://example.com/avatar/evan.jpg",
         role: "user",
         status: "ban",
-        createdAt: "2024-12-03T16:30:00.000+00:00",
+        createdAt: new Date("2024-12-03T16:30:00.000+00:00"),
     },
     {
         fullName: "Nguyen Van A",
@@ -2486,7 +2486,7 @@ const mockUsers=[
         avatar: "https://example.com/avatar1.jpg",
         role: "user",
         status: "ban",
-        createdAt: "2024-12-08T07:00:00.000Z",
+        createdAt: new Date("2024-12-08T07:00:00.000Z"),
     },
     {
         fullName: "Tran Thi B",
@@ -2496,7 +2496,7 @@ const mockUsers=[
         avatar: "https://example.com/avatar2.jpg",
         role: "user",
         status: "ban",
-        createdAt: "2024-12-08T07:01:00.000Z",
+        createdAt: new Date("2024-12-08T07:01:00.000Z"),
     },
     {
         fullName: "Le Van C",
@@ -2506,7 +2506,7 @@ const mockUsers=[
         avatar: "https://example.com/avatar3.jpg",
         role: "user",
         status: "ban",
-        createdAt: "2024-12-08T07:02:00.000Z",
+        createdAt: new Date("2024-12-08T07:02:00.000Z"),
     },
     {
         fullName: "Pham Thi D",
@@ -2516,7 +2516,7 @@ const mockUsers=[
         avatar: "https://example.com/avatar4.jpg",
         role: "user",
         status: "ban",
-        createdAt: "2024-12-08T07:03:00.000Z",
+        createdAt: new Date("2024-12-08T07:03:00.000Z"),
     },
     {
         fullName: "Hoang Van E",
@@ -2526,7 +2526,7 @@ const mockUsers=[
         avatar: "https://example.com/avatar5.jpg",
         role: "user",
         status: "ban",
-        createdAt: "2024-12-08T07:04:00.000Z",
+        createdAt: new Date("2024-12-08T07:04:00.000Z"),
     },
     {
         fullName: "Do Thi F",
@@ -2536,7 +2536,7 @@ const mockUsers=[
         avatar: "https://example.com/avatar6.jpg",
         role: "user",
         status: "ban",
-        createdAt: "2024-12-08T07:05:00.000Z",
+        createdAt: new Date("2024-12-08T07:05:00.000Z"),
     },
     {
         fullName: "Vo Van G",
@@ -2546,7 +2546,7 @@ const mockUsers=[
         avatar: "https://example.com/avatar7.jpg",
         role: "user",
         status: "ban",
-        createdAt: "2024-12-08T07:06:00.000Z",
+        createdAt: new Date("2024-12-08T07:06:00.000Z"),
     },
 
     // staff
@@ -2558,7 +2558,7 @@ const mockUsers=[
         avatar: "https://example.com/avatar/levanh.jpg",
         role: "staff",
         status: "active",
-        createdAt: "2025-01-11T08:00:00.000+00:00",
+        createdAt: new Date("2025-01-11T08:00:00.000+00:00"),
     },
     {
         fullName: "Nguyễn Minh T",
@@ -2568,7 +2568,7 @@ const mockUsers=[
         avatar: "https://example.com/avatar/nguyenminht.jpg",
         role: "staff",
         status: "active",
-        createdAt: "2025-01-11T08:10:00.000+00:00",
+        createdAt: new Date("2025-01-11T08:10:00.000+00:00"),
     },
     {
         fullName: "Trần Thị A",
@@ -2578,7 +2578,7 @@ const mockUsers=[
         avatar: "https://example.com/avatar/tranthia.jpg",
         role: "staff",
         status: "active",
-        createdAt: "2025-01-11T08:15:00.000+00:00",
+        createdAt: new Date("2025-01-11T08:15:00.000+00:00"),
     },
     {
         fullName: "Phạm Minh T",
@@ -2588,7 +2588,7 @@ const mockUsers=[
         avatar: "https://example.com/avatar/phamminht.jpg",
         role: "staff",
         status: "active",
-        createdAt: "2025-01-11T08:20:00.000+00:00",
+        createdAt: new Date("2025-01-11T08:20:00.000+00:00"),
     },
     {
         fullName: "Vũ Quang T",
@@ -2598,7 +2598,7 @@ const mockUsers=[
         avatar: "https://example.com/avatar/vuquangt.jpg",
         role: "staff",
         status: "active",
-        createdAt: "2025-01-11T08:30:00.000+00:00",
+        createdAt: new Date("2025-01-11T08:30:00.000+00:00"),
     },
 ]
 
