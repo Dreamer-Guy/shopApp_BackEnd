@@ -55,7 +55,6 @@ const getTimeRangeCaseDay=(start,length)=>{
         });
         current=calculateNextTimeLineCaseDay(current);
     }
-    console.log(timeRange);
     return timeRange;
 };
 
