@@ -4,6 +4,17 @@ const INTERNAL_SERVER_ERROR=500;
 const SUCCESS_STATUS=200;
 const BAD_REQUEST_STATUS=400;
 
+const formatOrder=(order)=>{
+    const day=order.createdAt.getDate();
+    const month=order.createdAt.getMonth()+1;
+    const year=order.createdAt.getFullYear();
+    const date=`${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
+    return {
+        ...order,
+        createdAt:date
+    };
+}
+
 const orderController = {
     getAllOrders: async (req, res) => {
         try {
@@ -43,7 +54,8 @@ const orderController = {
                 return res.status(BAD_REQUEST_STATUS).json({ message: "Invalid request" });
             }
             const order = await orderService.getOrderById(orderId);
-            return res.status(SUCCESS_STATUS).send(order);
+            const formatedOrder=formatOrder(order);
+            return res.status(SUCCESS_STATUS).send(formatedOrder);
         } catch (e) {
             console.log(e);
             return res.status(INTERNAL_SERVER_ERROR).json({ message: "Internal Server Error" });

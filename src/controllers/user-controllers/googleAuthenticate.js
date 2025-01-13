@@ -55,6 +55,7 @@ const getUserInfoByAccessToken = async (access_token) => {
 };
 
 const createNewUserByGoogleUserInfoResponse=async(resUserInfo)=>{
+    console.log(resUserInfo);
     const hashedPassword=await hashPassword(GOOGLE_SECRET_STRING);
     const userData={
         fullName: resUserInfo.data.name,
