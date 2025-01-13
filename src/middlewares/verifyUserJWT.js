@@ -18,6 +18,7 @@ const verifyUserJWT = async(req, res, next) => {
             });
         }
         await userServices.updateLastTimeLogin(decoded.obj);
+        console.log(decoded.obj);
         req.user=decoded.obj;
         next();
     }
