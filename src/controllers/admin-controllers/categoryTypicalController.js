@@ -6,8 +6,8 @@ const BAD_REQUEST_STATUS=400;
 const INTERNAL_SERVER_ERROR_STATUS=500
 
 const isMissDataToAdd=(req)=>{
-    const {name, description, category_id} = req.body;
-    if(!name || !description || !category_id){
+    const {name, category_id} = req.body;
+    if(!name || !category_id){
         return true;
     }
     return false;
@@ -29,7 +29,7 @@ const addTypicalDetail = async (req, res) => {
         if(isMissDataToAdd(req)){
             return res.status(BAD_REQUEST_STATUS)
             .send({
-                message:"Please provide name, description and category_id to add typical detail"});
+                message:"Please provide name"});
         };
         const {name, description, category_id} = req.body;
         const category=await categoryService.getCategoryById(category_id);
@@ -50,6 +50,7 @@ const addTypicalDetail = async (req, res) => {
         );
     }
     catch(e){
+        console.log(e.message);
         return res.status(INTERNAL_SERVER_ERROR_STATUS).send({message:'Internal server error'});
     }
 };

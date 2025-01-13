@@ -7,8 +7,9 @@ const STAFF_ROLE = "staff";
 const ADMIN_ROLE = "admin";
 
 const getAllUsersBasedOnRole = async (role,page,limit,sort) => {
-    const users=await User.find({role})
-        .sort(sort).skip((page-1)*limit).limit(limit)||[];
+    const users=await User
+    .find({role})
+    .sort(sort).skip((page-1)*limit).limit(limit)||[];
     return users;
 };
 
@@ -76,7 +77,7 @@ const userServices = {
         const user=await User.findOne({email});
         return user?true:false;
     },
-    async getAllCustomers(page,limit,sort){
+    async getAllCustomers(page,limit,sort){  
         const customers=await getAllUsersBasedOnRole(CUSTOMER_ROLE,page,limit,sort);
         return customers;
     },

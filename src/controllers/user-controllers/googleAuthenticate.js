@@ -16,6 +16,7 @@ const buildRedirectUri = () => {
     const scope = encodeURIComponent(["profile", "email"].join(" "));
     const state = encodeURIComponent(process.env.OAUTH_STATE);
     const redirect_uri = encodeURIComponent(process.env.OAUTH_GOOGLE_CALLBACK_URL);
+    console.log(process.env.OAUTH_GOOGLE_CALLBACK_URL);
     const url = `${process.env.OAUTH_GOOGLE_OAUTH_URL}?access_type=offline&state=${state}&scope=${scope}&redirect_uri=${redirect_uri}&response_type=code&client_id=${CLIENT_ID}`;
     return url;
 }

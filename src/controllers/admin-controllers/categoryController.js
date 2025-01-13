@@ -1,13 +1,14 @@
 import deleteImageFromDisk from "../../utils/deleteImageFromDisk.js";
 import uploadImageToCloud from "../../utils/uploadImageToCloud.js";
 import categoryService from "../../services/categoryService.js";
+import productService from "../../services/productService.js";
 const OK_STATUS=200;
 const BAD_REQUEST_STATUS=400;
 const INTERNAL_SERVER_ERROR_STATUS=500;
 
 const isMissDataToAdd=(req)=>{
-    const {name, description}=req.body;
-    return !name || !description;
+    const {name}=req.body;
+    return !name;
 }
 
 const isMissDataToUpdate=(req)=>{
@@ -17,9 +18,9 @@ const isMissDataToUpdate=(req)=>{
 
 const addCategory = async (req, res) => {
     try{
-        if(!isMissDataToAdd(req)){
+        if(isMissDataToAdd(req)){
             return res.status(BAD_REQUEST_STATUS)
-            .send({message:"Please provide name and description"});
+            .send({message:"Please provide name"});
         };
         const {name, description} = req.body;
         if(await categoryService.isExistByName(name)){
@@ -50,8 +51,8 @@ const deleteCategory = async (req, res) => {
         const category=await categoryService.getCategoryById(categoryId);
         if(category){
             await categoryService.deleteByCategoryId(categoryId);
-            return res.status(OK_STATUS).send({
-                message:"Category deleted successfully"});
+            await productService.updateAfterDeletingCategory(categoryId);
+            return res.status(OK_STATUS).send(categoryId);
         }
         return res.status(BAD_REQUEST_STATUS).send({message:"Category not found"});
     }
@@ -114,4 +115,12 @@ const getCategoryById = async (req, res) => {
     }
 };
 
-export {addCategory,updateCategory,deleteCategory,getAllCategories,getCategoryById};
+const adminCategoryController={
+    addCategory,
+    updateCategory,
+    deleteCategory,
+    getAllCategories,
+    getCategoryById
+}
+
+export default adminCategoryController;
