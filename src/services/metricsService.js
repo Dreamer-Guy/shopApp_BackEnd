@@ -4,8 +4,9 @@ import staffService from "./staffService.js";
 
 const getTimeRangeThisMonth=()=>{
     const current=new Date();
+    //console.log(current.getFullYear(),current.getMonth()+1,current.getDate());
     const start=new Date(current.getFullYear(),current.getMonth(),1);
-    const end=new Date(current.getFullYear(),current.getMonth(),0);
+    const end=new Date(current.getFullYear(),current.getMonth()+1,current.getDate());
     return {start,end};
 }
 
@@ -18,6 +19,7 @@ const metricsService={
     },
     getTotalOrdersInThisMonth:async()=>{
         const timeRange=getTimeRangeThisMonth();
+        console.log(timeRange);
         const totalOrders=await orderService.countOrdersInTimeRange(timeRange);
         return totalOrders;
     },
