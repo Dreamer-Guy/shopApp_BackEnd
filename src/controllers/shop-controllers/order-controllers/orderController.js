@@ -1,6 +1,7 @@
 import orderService from "../../../services/orderService.js";
 import addressService from "../../../services/addressService.js";
 import cartService from "../../../services/cartService.js";
+import productService from "../../../services/productService.js";
 const SUCCESS_STATUS = process.env.SUCCESS_STATUS;
 const BAD_REQUEST_STATUS = process.env.BAD_REQUEST_STATUS;
 const SERVER_ERROR_STATUS = process.env.SERVER_ERROR_STATUS;
@@ -31,6 +32,10 @@ const placeOrder = async (req,res)=>{
             return res.status(BAD_REQUEST_STATUS).send({success:false,message:"Products not exits",invalidProductIds})
         }
         for (let item of items) {
+            const result = await productService.deleteProductStockByProductId(item.productId,item.quantity);
+            if(!result){
+                return res.status(BAD_REQUEST_STATUS).send({success:false,message:"Product stock not enough"})
+            }
             const { success, data } = await cartService.deleteItemFromCart(userId, item.productId, item.quantity);
             if(!success){
                 return res.status(SERVER_ERROR_STATUS).send({success:false,message:"Can not remove item from cart"})

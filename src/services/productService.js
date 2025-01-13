@@ -281,6 +281,17 @@ const productService = {
         const defaultCategory = await categoryService.getDefaultCategory();
         await Product.updateMany({ category_id: categoryId }, { category_id: defaultCategory._id });
     },
+    deleteProductStockByProductId: async (productId,quantity) => {
+        const product = await Product.findById(productId);
+        if(product.totalStock>=quantity){
+            product.totalStock-=quantity;
+            await product.save();
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
 };
 
 

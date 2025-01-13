@@ -203,5 +203,17 @@ const getProductById=async(req,res)=>{
         });
     }
 }
+const deleteProductStockByProductId=async(req,res)=>{
+    try{
+        const {id}=req.params;
+        const product=await productService.deleteProductStockByProductId(id);
+        return res.status(SUCCESS_STATUS).send(product);
+    }
+    catch(e){
+        return res.status(SERVER_ERROR_STATUS).send({
+            message:"server error",
+        });
+    }
+}
 
-export { searchProducts,getRelatedProducts,getLatestProducts,getTopOrderedProducts,getProductById};
+export { searchProducts,getRelatedProducts,getLatestProducts,getTopOrderedProducts,getProductById,deleteProductStockByProductId};
