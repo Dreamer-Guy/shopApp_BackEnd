@@ -190,4 +190,18 @@ const getTopOrderedProducts = async (req, res) => {
     }
 };
 
-export { searchProducts,getRelatedProducts,getLatestProducts,getTopOrderedProducts};
+
+const getProductById=async(req,res)=>{
+    try{
+        const {id}=req.params;
+        const product=await productService.getProductById(id);
+        return res.status(SUCCESS_STATUS).send(populateProduct(product));
+    }
+    catch(e){
+        return res.status(SERVER_ERROR_STATUS).send({
+            message:"server error",
+        });
+    }
+}
+
+export { searchProducts,getRelatedProducts,getLatestProducts,getTopOrderedProducts,getProductById};
