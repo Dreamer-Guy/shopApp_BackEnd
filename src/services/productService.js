@@ -9,7 +9,26 @@ const productService = {
         const products=await Product.find({isDeleted:false}).lean();
         return products;
     },
-
+    getAllProductsForAdmin:async({page,limit,sort,filter})=>{
+        const sortKey=Object.keys(sort)[0];
+        const sortValue=Number(Object.values(sort)[0]);
+        const formatedSort={
+            [sortKey]:sortValue
+        };
+        const products=await Product
+        .find({...filter,isDeleted:false})
+        .sort(formatedSort)
+        .skip((page-1)*limit)
+        .limit(limit)
+        .populate('brand_id')
+        .populate('category_id')
+        .lean();
+        return products;
+    },
+    countTotalProductsFilterForAdmin:async(filter)=>{
+        const count=await Product.countDocuments({...filter,isDeleted:false});
+        return count;
+    },
     getSoftDeletedProducts:async(page,limit)=>{
         const products=await Product.find({isDeleted:true}).skip((page-1)*limit).limit(limit).lean();
         return products;
@@ -52,7 +71,8 @@ const productService = {
     },
 
     updateByProductId: async (productId, productProps) => {
-        const product = await Product.findByIdAndUpdate(productId, productProps, { new: true });
+        const product = await Product.findByIdAndUpdate(productId, 
+            {...productProps,cost:Number(productProps.cost)}, { new: true });
         return product;
     },
     softDeleteByProductId: async (productId) => {

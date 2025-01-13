@@ -12,7 +12,7 @@ const SERVER_ERROR_STATUS = 500;
 const TMP_DIR_PATH="./tmp";
 
 const isMissEssentialData=(req)=>{
-    const ESSENTIAL_DATA=["name","description","price","salePrice","category_id","brand_id"];
+    const ESSENTIAL_DATA=["name","description","cost","price","salePrice","category_id","brand_id"];
     if(!req.body.product){
         return true;
     }
@@ -45,11 +45,13 @@ const uploadImageAndDeleteFromDisk=async(file)=>{
 const productController={
     getAllProducts:async(req,res)=>{
         try{
-            const allProductDetails=await productService.getAllProducts();
+            const {page,limit,sort,filter={}}=req.query;
+            const allProductDetails=await productService.getAllProductsForAdmin({page,limit,sort,filter});
+            const totalProducts=await productService.countTotalProductsFilterForAdmin(filter);
             res
             .status(SUCCESS_STATUS)
             .send({
-                message:"All products fetched successfully",
+                totalProducts:totalProducts,
                 products:allProductDetails,
             });
         }catch(err){
@@ -196,29 +198,27 @@ const productController={
         
         try{
             if(isMissEssentialData(req)){
-                res.status(BAD_REQUEST_STATUS)
+                return res.status(BAD_REQUEST_STATUS)
                 .send({message:"Please provide essential data to update product"});
             };
             if(!await categoryService.isExistById(req.body.product.category_id)){
-                res.status(BAD_REQUEST_STATUS)
+                return res.status(BAD_REQUEST_STATUS)
                 .send({message:"Category does not exist"});
-                return;
             }
             if(!await brandService.isExistById(req.body.product.brand_id)){
-                res.status(BAD_REQUEST_STATUS)
+                return res.status(BAD_REQUEST_STATUS)
                 .send({message:"Brand does not exist"});
             }
             const {id}=req.params;
             const product=JSON.parse(req.body.product);
             if(!await productService.isProductExist(id)){
-                res.status(BAD_REQUEST_STATUS)
+                return res.status(BAD_REQUEST_STATUS)
                 .send({message:"Product does not exist"});
-                return;
             }
             const image=await getNewImageUrl(req);
             const updatedProduct=await productService.updateByProductId(id,{...product,image});
             const updatedProductDetails=await productDetailsService.updateByProductId(id,product.productDetails);
-            res
+            return res
             .status(SUCCESS_STATUS)
             .send({
                 message:"Product updated successfully",
