@@ -2,6 +2,7 @@ import axios from "axios";
 import userServices from "../../services/userService.js";
 import { hashPassword } from "../../utils/hashAndCompare.js";
 import { createToken } from "../../utils/createAndVerifyToken.js";
+import cartServices from "../../services/cartService.js";
 
 const SUCCESS_STATUS = 200;
 const BAD_REQUEST_STATUS = 400;
@@ -64,7 +65,10 @@ const createNewUserByGoogleUserInfoResponse=async(resUserInfo)=>{
         password: hashedPassword,  
         avatar: resUserInfo.data.picture,
     }
-    const user=userServices.createUser(userData);
+    const user=await userServices.createUser(userData);
+    
+    await cartServices.createEmptyCart(user._id);
+    
     return user;
 };
 
@@ -111,7 +115,7 @@ const authGoogleCallback = async (req, res) => {
         }   
         const newUser = await createNewUserByGoogleUserInfoResponse(resUserInfo);
         await userServices.saveUser(newUser);
-        await userServices.updateLastTimeLogin(user);
+        await userServices.updateLastTimeLogin(newUser);
         const token = createToken(newUser);
         return res
             .status(SUCCESS_STATUS)
