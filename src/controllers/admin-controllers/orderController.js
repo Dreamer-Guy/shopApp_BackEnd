@@ -5,9 +5,10 @@ const SUCCESS_STATUS=200;
 const BAD_REQUEST_STATUS=400;
 
 const formatOrder=(order)=>{
-    const day=order.createdAt.getDate();
-    const month=order.createdAt.getMonth()+1;
-    const year=order.createdAt.getFullYear();
+    const createdDateOfOrder=new Date(order.createdAt);
+    const day=createdDateOfOrder.getDate();
+    const month=createdDateOfOrder.getMonth()+1;
+    const year=createdDateOfOrder.getFullYear();
     const date=`${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
     return {
         ...order,
@@ -22,6 +23,7 @@ const orderController = {
             const { page, limit } = req.query;
             const orders = await orderService.getOrdersFilterStatusAndPayment(status, paymentStatus, sort, page, limit);
             const totalOrders = await orderService.countOrdersFilterStatusAndPayment(status, paymentStatus);
+            console.log(orders);
             return res.status(SUCCESS_STATUS).send({
                 orders,
                 totalOrders

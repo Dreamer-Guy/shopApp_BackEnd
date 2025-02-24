@@ -156,6 +156,7 @@ const orderService={
             .find(query).sort(formatedSortOQuery)
             .skip((page-1)*limit)
             .limit(limit)
+            .populate('userId')
             .lean();
         return orders;
     },
